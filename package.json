@@ -1,0 +1,25 @@
+{
+  "name": "NODE-OPTICS",
+  "version": "1.0.0",
+  "description": "Fibre optic network simulator",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolcookie/node-data.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lolcookie/NODE-OPTICS/issues"
+  },
+  "homepage": "https://github.com/lolcookie/NODE-OPTICS#readme",
+  "dependencies": {
+    "babel": "^6.3.13",
+    "d3": "^3.5.10",
+    "express": "latest",
+    "lodash": "^3.10.1"
+  }
+}
