@@ -15,5 +15,4 @@ http://localhost:8081/
 ```
 
 
-* Requirements
-Requires NODE v5.0.0+
+* Requires NODE v5.0.0+
