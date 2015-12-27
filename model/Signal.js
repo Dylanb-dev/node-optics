@@ -1,6 +1,6 @@
 'use strict';
 
-class Signal {
+var Signal = class Signal {
 
   constructor(power, freq, name, sender){
     this.power = power;
@@ -8,6 +8,7 @@ class Signal {
     this.name = name;
     this.sender = sender;
     this.delta_f = [];
+
   }
 
   powerChange(chng){
@@ -97,21 +98,4 @@ class Signal {
   	}
 }
 
-module.exports.CreateSignal = function (power, freq, name, sender) {
-  return new Signal(power, freq, name, sender);
-}
-module.exports.powerChange = function (chng) {
-  return Signal.powerChange(chng);
-}
-module.exports.freqChange = function (chng) {
-  return Signal.freqChange(chng);
-}
-module.exports.add_delta_f = function (f) {
-  return Signal.add_delta_f(f);
-}
-module.exports.print_signal = function () {
-  return Signal.print_signal();
-}
-module.exports.get_delta_f_in_string = function () {
-  return Signal.get_delta_f_in_string();
-}
+module.exports = Signal;

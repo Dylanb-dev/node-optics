@@ -8,7 +8,7 @@ var Signal = require('./model/Signal.js');
 
 app.get('/', function(req, res){
 
-    var s = Signal.CreateSignal(10,10, 'test');
+    var s = new Signal(10,10, 'test');
     s.powerChange(10);
     console.log(s.print_signal()); //Prints to server console
     res.send(s)
