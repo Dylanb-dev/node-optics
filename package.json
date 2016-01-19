@@ -19,6 +19,7 @@
   "dependencies": {
     "babel": "^6.3.13",
     "d3": "^3.5.10",
+    "eslint": "^1.10.3",
     "express": "latest",
     "lodash": "^3.10.1"
   }

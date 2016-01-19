@@ -1,6 +1,6 @@
 'use strict';
 
-var Signal = class Signal {
+class Signal {
 
   constructor(power, freq, name, sender){
     this.power = power;

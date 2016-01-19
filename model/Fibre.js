@@ -73,3 +73,4 @@ class Fibre {
 	}
 
 }
+module.exports = Fibre;
