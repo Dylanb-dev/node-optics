@@ -72,7 +72,7 @@ class Filter extends Device  {
 			if(filter(signal)){						//if the signal can pass through the filer
 				deviceEffect(signal);				//changing the power of siganls passing through
 				//if signal was sent from fb1 send to fb2 else send to fb1
-				if(signal.sender.equals(fb1.name)){
+				if(signal.sender==fb1.name){
 					signal.sender = name;			//update sender to this component
 					fb2.moveSignal(signal);			//send to fb2
 				} else {

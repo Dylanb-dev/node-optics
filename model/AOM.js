@@ -27,7 +27,7 @@ class AOM extends Device {
       //if not end of line send on
       if (fb1 != null && fb2 != null) {
         //if signal was sent from fb1 send to fb2 else send to fb1
-        if (signal.sender.equals(fb1.name)) {
+        if (signal.sender==fb1.name) {
           signal.sender = name; //update sender to this component
           fb2.moveSignal(signal); //send to fb2
         } else {

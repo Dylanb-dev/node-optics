@@ -38,7 +38,7 @@ class PhotonDetector extends Device {
   moveSignal(signal) {
 
     //if sent from input continue otherwise fail
-    if (fbIn != null && signal.sender.equals(fbIn.name)) {
+    if (fbIn != null && signal.sender==fbIn.name) {
       deviceEffect(signal);
       addSignal(signal);
     }

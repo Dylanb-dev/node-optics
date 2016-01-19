@@ -42,7 +42,7 @@ class Circulator extends Device {
 	 */
 	moveSignal(signal){
 
-		if(fb1!=null && signal.sender.equals(fb1.name)){
+		if(fb1!=null && signal.sender==fb1.name){
 			//add ref and overall abs effects
 			deviceEffect(signal);
 			signal.power += abs1_2;
@@ -51,7 +51,7 @@ class Circulator extends Device {
 			if(fb2!=null){
 				fb2.moveSignal(signal);
 			}
-		} else if(fb2!=null && signal.sender.equals(fb2.name)) {
+		} else if(fb2!=null && signal.sender==fb2.name) {
 			//add ref and overall abs effects
 			deviceEffect(signal);
 			signal.power += abs2_3;
@@ -69,10 +69,10 @@ class Circulator extends Device {
 	 */
 	@Override
 	reflectSignal(sig){
-		if(sig.sender.equals(fb1.name)){
+		if(sig.sender==fb1.name){
 			sig.sender = name;
 			fb1.moveSignal(sig);
-		} else if(sig.sender.equals(fb2.name)) {
+		} else if(sig.sender==fb2.name) {
 			sig.sender = name;
 			fb2.moveSignal(sig);
 		} else {

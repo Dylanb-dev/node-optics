@@ -470,7 +470,7 @@ class test {
     //check sim state
     System.out.println("Device Array");
     for (int i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name));
+      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
     }
 
     System.out.println();
@@ -512,7 +512,7 @@ class test {
     //check sim state
     System.out.println("Device Array");
     for (int i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name));
+      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
     }
 
     System.out.println();
@@ -772,7 +772,7 @@ class test {
     //check sim state
     Globals.log("Device Array");
     for (int i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name));
+      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
     }
 
     System.out.println();

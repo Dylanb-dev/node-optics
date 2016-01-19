@@ -24,7 +24,7 @@ class Isolator extends Device {
 	//only allowing signal to travel from receiving fiber to sending fiber
 
 	moveSignal(signal){
-		if(signal.sender.equals(receiveFb.name)){
+		if(signal.sender==receiveFb.name){
 			signal.sender = name;
 			sendFb.moveSignal(signal);
 		}
@@ -34,7 +34,7 @@ class Isolator extends Device {
 	 * 		decide where to move reflected signal and sends
 	 */
 	reflectSignal(Signal sig){
-		if(sig.sender.equals(receiveFb.name)){
+		if(sig.sender==receiveFb.name){
 			sig.sender = name;
 			receiveFb.moveSignal(sig);
 		} else {

@@ -34,11 +34,11 @@ public class FiberLink extends Fibre {
     signal.powerChange(power_shift); //shift signal's power
 
     //if signal was sent from d1 send to d2 else send to d1
-    if (d1 != null && signal.sender.equals(d1.name)) { //check if fb1 is null first
+    if (d1 != null && signal.sender==d1.name) { //check if fb1 is null first
       signal.sender = name; //update sender to fiber
       d2.moveSignal(signal); //send to d2
     }
-    if (d2 != null && signal.sender.equals(d2.name)) { //check if fb2 is null first
+    if (d2 != null && signal.sender==d2.name) { //check if fb2 is null first
       signal.sender = name;
       d1.moveSignal(signal);
     }

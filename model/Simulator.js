@@ -172,7 +172,7 @@ class Simulator {
 	 */
 	public Device getDevice(String iD){
 		for(int i=0;i<deviceAry.length;i++){
-			if(deviceAry[i]!=null && deviceAry[i].name.equals(iD)){
+			if(deviceAry[i]!=null && deviceAry[i].name==iD)){
 				return deviceAry[i];
 			}
 		}
@@ -230,43 +230,43 @@ class Simulator {
 		Device device;
 		String iD = getID();
 
-		if(type.equals("Splitter")){
+		if(type=="Splitter")){
 			device = new Splitter(iD,0,0,false,-3,-3);
 			device.type = 0;
 
-		} else if(type.equals("PDetector")){
+		} else if(type=="PDetector")){
 			device = new PhotonDetector(iD,0,0,false);
 			device.type = 1;
 
-		} else if(type.equals("Mixer")){
+		} else if(type=="Mixer")){
 			device = new Mixer(iD,0,0,false,0);
 			device.type = 2;
 
-		} else if(type.equals("Laser")){
+		} else if(type=="Laser")){
 			device = new Laser(iD,"master",5,2.0 * Math.pow(10, 8)); //(5dB, 200THz)
 			device.type = 3;
 
-		} else if(type.equals("Isolator")){
+		} else if(type=="Isolator")){
 			device = new Isolator(iD,0,0,false);
 			device.type = 4;
 
-		} else if(type.equals("Filter")){
+		} else if(type=="Filter")){
 			device = new Filter(iD,0,0,false,0,300);
 			device.type = 5;
 
-		} else if(type.equals("Component")){
+		} else if(type=="Component")){
 			device = new Component(iD,0,0,false);
 			device.type = 6;
 
-		} else if(type.equals("Circulator")){
+		} else if(type=="Circulator")){
 			device = new Circulator(iD,0,0,false,0,0);
 			device.type = 7;
 
-		} else if(type.equals("AOM")){
+		} else if(type=="AOM")){
 			device = new AOM(iD,0,0,false,0);
 			device.type = 8;
 
-		} else if(type.equals("Divider_Multiplier")){
+		} else if(type=="Divider_Multiplier")){
 			device = new Divider_Multiplier(iD,0,0,false,0);
 			device.type = 9;
 		}else{
@@ -305,7 +305,7 @@ class Simulator {
 	 */
 	public Fibre getFiber(String iD){
 		for(int i=0;i<fiberAry.length;i++){
-			if(fiberAry[i]!=null && fiberAry[i].name.equals(iD)){
+			if(fiberAry[i]!=null && fiberAry[i].name==iD)){
 				return fiberAry[i];
 			}
 		}
@@ -369,7 +369,7 @@ class Simulator {
 
 		//find device in deviceAry get index
 		for(int i=0;i<deviceAry.length;i++){
-			if(deviceAry[i]!=null && deviceAry[i].name.equals(String.valueOf(iD))){
+			if(deviceAry[i]!=null && deviceAry[i].name==String.valueOf(iD))){
 				index = i;
 			}
 		}
@@ -414,7 +414,7 @@ class Simulator {
 		int index = -1;
 		//find fiber in fiberAry get index
 		for(int i=0;i<fiberAry.length;i++){
-			if(fiberAry[i]!=null && fiberAry[i].name.equals(String.valueOf(iD))){
+			if(fiberAry[i]!=null && fiberAry[i].name==String.valueOf(iD))){
 				index = i;
 			}
 		}
@@ -626,11 +626,11 @@ class Simulator {
 		//find both devices
 		for(int i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null){
-				if(deviceAry[i].name.equals(String.valueOf(iD1))){
+				if(deviceAry[i].name==String.valueOf(iD1))){
 					d1 = deviceAry[i];
 					d1Index = i;
 
-				} else if(deviceAry[i].name.equals(String.valueOf(iD2))){
+				} else if(deviceAry[i].name==String.valueOf(iD2))){
 					d2 = deviceAry[i];
 					d2Index = i;
 				}
@@ -1760,14 +1760,14 @@ class Simulator {
 		try {
 			String line = rd.readLine();
 			Device device = null;
-			while( line != null  && !line.equals("fiber")) {			//reading all the lines before "fiber"
+			while( line != null  && !line=="fiber")) {			//reading all the lines before "fiber"
 				System.out.println(line);
 				try {
 					Object obj=parser.parse(line);
 					Map array=(Map)obj;
 					String type = (String) array.get("class_type");
 					System.out.println(type);
-					if(type.equals("Splitter")){
+					if(type=="Splitter")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1784,7 +1784,7 @@ class Simulator {
 						device.coordinate[0] = Integer.parseInt(x);
 						device.coordinate[1] = Integer.parseInt(y);
 						sim.deviceAry[index] = device;						//storing the splitter to the device array
-					} else if(type.equals("PhotonDetector")){
+					} else if(type=="PhotonDetector")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1802,7 +1802,7 @@ class Simulator {
 						device.coordinate[1] = Integer.parseInt(y);
 						sim.deviceAry[index] = device;						//storing the splitter to the device array
 
-					} else if(type.equals("Mixer")){
+					} else if(type=="Mixer")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1818,7 +1818,7 @@ class Simulator {
 						device.coordinate[1] = Integer.parseInt(y);
 						device.type = 2;
 						sim.deviceAry[index] = device;
-					} else if(type.equals("Laser")){
+					} else if(type=="Laser")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String sigName = (String) array.get("sigName");
@@ -1833,7 +1833,7 @@ class Simulator {
 						device.coordinate[0] = Integer.parseInt(x);
 						device.coordinate[1] = Integer.parseInt(y);
 						sim.deviceAry[index] = device;
-					} else if(type.equals("Isolator")){
+					} else if(type=="Isolator")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1848,7 +1848,7 @@ class Simulator {
 						device.coordinate[0] = Integer.parseInt(x);
 						device.coordinate[1] = Integer.parseInt(y);
 						sim.deviceAry[index] = device;
-					} else if(type.equals("Filter")){
+					} else if(type=="Filter")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1867,7 +1867,7 @@ class Simulator {
 						((Filter)device).type_of_filter = type_of_filter;
 						sim.deviceAry[index] = device;
 						device.type = 5;
-					} else if(type.equals("Component")){
+					} else if(type=="Component")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1883,7 +1883,7 @@ class Simulator {
 						sim.deviceAry[index] = device;
 						device.type = 6;
 
-					} else if(type.equals("Circulator")){
+					} else if(type=="Circulator")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1900,7 +1900,7 @@ class Simulator {
 						device.coordinate[0] = Integer.parseInt(x);
 						device.coordinate[1] = Integer.parseInt(y);
 						sim.deviceAry[index] = device;
-					} else if(type.equals("AOM")){
+					} else if(type=="AOM")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1919,7 +1919,7 @@ class Simulator {
 						device.coordinate[1] = Integer.parseInt(y);
 						sim.deviceAry[index] = device;
 
-					} else if(type.equals("Divider_Multiplier")){
+					} else if(type=="Divider_Multiplier")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
 						String x = (((ArrayList)array.get("coordinate")).get(0)).toString();
@@ -1947,7 +1947,7 @@ class Simulator {
 			}
 			line = rd.readLine();				//get the line after "fiber"
 			Fibre fb = null;
-			while(line != null  && !line.equals("globals")) {
+			while(line != null  && !line=="globals")) {
 				System.out.println(line);
 				try {
 					Object obj=parser.parse(line);
@@ -1966,7 +1966,7 @@ class Simulator {
 				line = rd.readLine();
 			}
 			line = rd.readLine();				//get the line after "globals"
-			while(line != null  && !line.equals("device to fiber")) {
+			while(line != null  && !line=="device to fiber")) {
 				System.out.println(line);
 				try {
 					Object obj=parser.parse(line);
@@ -1984,7 +1984,7 @@ class Simulator {
 			/*get the line after "device to fiber"*/
 			line = rd.readLine();
 			int counter = 0;							//a counter used to store numbers back into device to fiber array
-			while(line != null && !line.equals("connection count") ) {
+			while(line != null && !line=="connection count") ) {
 				System.out.println(line);
 				//*****************converting the string back in to int array****************************
 				String[] items = line.replaceAll("\\[", "").replaceAll("\\]", "").split(",");

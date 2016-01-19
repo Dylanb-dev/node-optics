@@ -37,7 +37,7 @@ class Laser extends Device {
 	 */
 	moveSignal(){
 		//if sender not laser don't send
-		if(signal.sender.equals(name)){
+		if(signal.sender==name){
 			fb1.moveSignal(signal);
 
 		}

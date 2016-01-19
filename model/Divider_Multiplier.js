@@ -46,7 +46,7 @@ class Divider_Multiplier extends Device {
     //if not end of line send on
     if (fb1 != null && fb2 != null) {
       //if signal was sent from fb1 send to fb2 else send to fb1
-      if (signal.sender.equals(fb1.name)) {
+      if (signal.sender==fb1.name) {
         signal.sender = name; //update sender to this component
         fb2.moveSignal(signal); //send to fb2
       } else {
@@ -75,7 +75,7 @@ class Divider_Multiplier extends Device {
    * 		decide where to move reflected signal and sends
    */
    reflectSignal(sig) {
-    if (sig.sender.equals(fb1.name)) {
+    if (sig.sender==fb1.name) {
       sig.sender = name;
       fb1.moveSignal(sig);
     } else {

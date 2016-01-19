@@ -59,7 +59,7 @@ class Mixer extends Device {
 	moveSignal(Signal signal){
 
 		//if sender is lo or rf add signal
-		if((loFiber!=null && signal.sender.equals(loFiber.name)) || (rfFiber!=null && signal.sender.equals(rfFiber.name))){
+		if((loFiber!=null && signal.sender==loFiber.name) || (rfFiber!=null && signal.sender==rfFiber.name)){
 			deviceEffect(signal);
 			addSignal(signal);
 		}
@@ -79,7 +79,7 @@ class Mixer extends Device {
 		sendBeat();
 
 		//add signal to array, make beats, send them
-		if(loFiber!=null && sig.sender.equals(loFiber.name)){
+		if(loFiber!=null && sig.sender==loFiber.name){
 			for(int i=0;i<loSignals.length;i++){
 				if(loSignals[i] == null){
 					loSignals[i] = sig;
@@ -87,7 +87,7 @@ class Mixer extends Device {
 					return 0;
 				}
 			}
-		}else if(rfFiber!=null && sig.sender.equals(rfFiber.name)){
+		}else if(rfFiber!=null && sig.sender==rfFiber.name){
 			for(int i=0;i<rfSignals.length;i++){
 				if(rfSignals[i] == null){
 					System.out.println("DSSD"+i);
@@ -216,10 +216,10 @@ class Mixer extends Device {
 	 * 		decide where to move reflected signal and send
 	 */
    reflectSignal(Signal sig){
-		if(sig.sender.equals(rfFiber.name)){
+		if(sig.sender==rfFiber.name){
 			sig.sender = name;
 			rfFiber.moveSignal(sig);
-		} else if(sig.sender.equals(loFiber.name)) {
+		} else if(sig.sender==loFiber.name) {
 			sig.sender = name;
 			loFiber.moveSignal(sig);
 		}
