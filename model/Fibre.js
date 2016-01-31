@@ -1,6 +1,6 @@
-'use strict';
+ 
 
-class Fibre {
+export default class Fibre {
 
 	 constructor(name, d1, d2, abs){
 		this.d1 = d1;
@@ -61,7 +61,7 @@ class Fibre {
 	 */
 	log(signal){
 		let sig = [];
-    var d = new Date();
+    const d = new Date();
     sig[0] = '' +(d.nanoTime());
 		sig[1] = signal.name;
 		sig[2] = signal.sender;

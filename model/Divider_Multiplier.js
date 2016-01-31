@@ -1,4 +1,4 @@
-'use strict';
+ 
 
 /**
  * 			A device to make a frequency multiplier or a divider depending
@@ -6,12 +6,12 @@
  * 			Divides or multiplies both the frequency and the perturbation
  * 			frequencies.
  *
- * @author Zachary Newman
+ * @author Zachary Newman and Dylan Broadbridge
  *
  */
+const Device = require('./Device.js');
 
-
-class Divider_Multiplier extends Device {
+export default class Divider_Multiplier extends Device {
 
 
   /**
@@ -64,7 +64,7 @@ class Divider_Multiplier extends Device {
     //add effect to frequency
     sig.freq = sig.freq * effect;
     //add effect to each coefficient
-    for (int i = 0; i < sig.delta_f.length; i++) {
+    for (let i = 0; i < sig.delta_f.length; i++) {
       if (sig.delta_f[i] != null) {
         sig.coefficient[i] = sig.coefficient[i] * effect;
       }

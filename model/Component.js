@@ -3,8 +3,9 @@
  * 		reflections, power changes and in some cases shifts in freq
  *
  */
+const Device = require('./Device.js');
 
-class Component extends Device {
+export default class Component extends Device {
 
 	/**
 	 *
@@ -57,4 +58,3 @@ class Component extends Device {
 	}
 
 }
-module.exports = Component;

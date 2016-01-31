@@ -1,4 +1,8 @@
-class Isolator extends Device {
+ 
+
+const Device = require('./Device.js');
+
+export default class Isolator extends Device {
 
 	/**
 	 * Constructor for isolator
@@ -8,7 +12,7 @@ class Isolator extends Device {
 	 * @param enableRef indicating if there is reflection on isolator
 	 *
 	 */
-	public Isolator(name, abs, ref, enableRef){
+	Isolator(name, abs, ref, enableRef){
     //fibers isolator is connected with
     this.receiveFb = new Fibre();
     this.sendFb = new Fibre();
@@ -33,7 +37,7 @@ class Isolator extends Device {
 	/**
 	 * 		decide where to move reflected signal and sends
 	 */
-	reflectSignal(Signal sig){
+	reflectSignal(sig){
 		if(sig.sender==receiveFb.name){
 			sig.sender = name;
 			receiveFb.moveSignal(sig);

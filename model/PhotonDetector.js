@@ -1,12 +1,17 @@
+ 
+
 /**
  * 		The photon detector stores a collection of all signals that it has recieved.
  * 		uppon reciving a new input signal a new beat output signal is produced from the
  * 		collection of signals in the detector.
  *
- * @author Zachary Newman
+ * @author Zachary Newman and Dylan Broadbridge
  *
  */
-class PhotonDetector extends Device {
+
+const Device = require('./Device.js');
+
+export default class PhotonDetector extends Device {
 
   /**
    *
@@ -20,7 +25,7 @@ class PhotonDetector extends Device {
     this.fbIn = new Fibre();
     this.fbOut = new Fibre();
 
-    this.signals[] = new Signal(); //  public Signal signals[];
+    this.signals = new Signal(); //  Signal signals[];
     this.beat = new Signal();
 
     this.name = name;
@@ -81,7 +86,7 @@ class PhotonDetector extends Device {
    */
   createBeats(index) {
     //cycle through signals creating all new beats for added signal
-    for (let i = 0; i < index; i++) { //for(int i=0;i<signals.length;i++) will make signals[i] pointing towards empty slot in the signals array, so need to fix this bug
+    for (let i = 0; i < index; i++) { //for(let i=0;i<signals.length;i++) will make signals[i] pointing towards empty slot in the signals array, so need to fix this bug
       //if not added signal create new beat pair
       if (i != index) {
 
@@ -127,7 +132,7 @@ class PhotonDetector extends Device {
    * 		clears signals from array & also clears beat
    */
   clearSigs() {
-    for (int i = 0; i < signals.length; i++) {
+    for (let i = 0; i < signals.length; i++) {
       signals[i] = null;
     }
     beat = null;

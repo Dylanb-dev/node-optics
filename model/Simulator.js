@@ -1,3 +1,5 @@
+ 
+
 /**
  * 			Simulator provides a template for new simulations. It handles saving and loading of
  * 			simulation files from JSON format.
@@ -5,14 +7,14 @@
  * @author zachary
  *
  */
-class Simulator {
+export default class Simulator {
 
-	public String deviceList[];
+	String deviceList[];
 
-	public Device possibleDevices[]; //list of all possible devices
+	Device possibleDevices[]; //list of all possible devices
 
-	//list of possible parameters null if parameters do not exist in class constructor
-	public String params[][] = {{"Name","Power Change (dB)",		"Reflection (dB)",			"Primary Power (dB)",		"Secondary Power (dB)",	"Enable Reflection",  null, null		},
+	//list of possible parameters null if parameters do not exist in export default class constructor
+	String params[][] = {{"Name","Power Change (dB)",		"Reflection (dB)",			"Primary Power (dB)",		"Secondary Power (dB)",	"Enable Reflection",  null, null		},
 			{"Name","Power Change (dB)",		"Reflection (dB)",		"Power Constant",			"Enable Reflection",							null,					null,					null},
 			{"Name","Power Change (dB)",		"Reflection (dB)",			"Power Constant",		"Enable Reflection",				null,					null,					null},
 			{"Name","Generated Signal Name","Signal Power (dBm)",	"Signal Frequency (MHz)",		null,							null,					null,					null},
@@ -24,24 +26,24 @@ class Simulator {
 			{"Name","Power Change (dB)",		"Reflection (dB)",			"Divide/Multiply Effect",		"Enable Reflection",				null,					null,					null}};
 
 
-	public int connectCount[];	//connection count for each device in workspace
+	let connectCount[];	//connection count for each device in workspace
 
-	public Device deviceAry[];	//devices init in workspace
+	Device deviceAry[];	//devices init in workspace
 
-	public int deviceCoords[][];		//x y coordinates of each device
+	let deviceCoords[][];		//x y coordinates of each device
 
 	/**
 	 * holds key pairs of devices and the ports that they use in the following format
 	 * 		{D1Index,D2Index,Port1,Port2,FbIndex}, null if empty
 	 */
-	public int device_to_fiber[][];
+	let device_to_fiber[][];
 
-	public Fibre fiberAry[];			//fiber init in workspace
-	int fiberCoords[][];		//x y coordinates of each fiber (MAYBE NOT NEEDED?)
+	Fibre fiberAry[];			//fiber init in workspace
+	let fiberCoords[][];		//x y coordinates of each fiber (MAYBE NOT NEEDED?)
 
-	private int currID;
+	let currID;
 
-	private final int DEVICE_SIZE = 200;
+	final let DEVICE_SIZE = 200;
 
 	//constructor
 	constructor(){
@@ -55,14 +57,14 @@ class Simulator {
 
 		device_to_fiber = new int[DEVICE_SIZE*4][5];
 		//fill empty link matrix
-		for(int i=0;i<device_to_fiber.length;i++){
-			for(int b=0;b<5;b++){
+		for(let i=0;i<device_to_fiber.length;i++){
+			for(let b=0;b<5;b++){
 				device_to_fiber[i][b]=-1;
 			}
 		}
 
 		connectCount = new int[DEVICE_SIZE];
-		for(int i=0;i<connectCount.length;i++){
+		for(let i=0;i<connectCount.length;i++){
 			connectCount[i] = 0;
 		}
 
@@ -90,9 +92,9 @@ class Simulator {
 	 * 		runs simulator
 	 * @return 0 for success 1 for fail
 	 */
-	public int run(){
+	let run(){
 		Globals.RUN_CHECK = 0; //check for return start at 0=success
-		int found = 1; //check for if laser is found
+		let found = 1; //check for if laser is found
 
 		//clear fiber logs
 		clearLogs();
@@ -103,7 +105,7 @@ class Simulator {
 		//start timer
 		Globals.startTime = System.nanoTime();
 
-		for(int i=0;i<deviceAry.length;i++){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null && deviceAry[i].type == 3){
 				Laser l1 = (Laser)deviceAry[i];
 				if(l1.fb1 != null){
@@ -129,8 +131,8 @@ class Simulator {
 	/**
 	 * 		resets the signal arrays in mixer and photon used to make beats
 	 */
-	public void resetBeatArrays(){
-		for(int i=0;i<deviceAry.length;i++){
+	resetBeatArrays(){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null && deviceAry[i].type == 1 ){
 				PhotonDetector pd = (PhotonDetector)deviceAry[i];
 				pd.clearSigs();
@@ -145,8 +147,8 @@ class Simulator {
 	/**
 	 * 		reset generated signals to there start properties
 	 */
-	public void resetSigs(){
-		for(int i=0;i<deviceAry.length;i++){
+	resetSigs(){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null && deviceAry[i].type == 3 ){
 				Laser l1 = (Laser)deviceAry[i];
 				l1.reset();
@@ -157,8 +159,8 @@ class Simulator {
 	/**
 	 * 		clears fiber logs
 	 */
-	private void clearLogs(){
-		for(int i=0;i<fiberAry.length;i++){
+	clearLogs(){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i]!=null){
 				fiberAry[i].log = new ArrayList<String[]>();
 			}
@@ -170,8 +172,8 @@ class Simulator {
 	 * @param iD of desired device
 	 * @return	the device or null on failure
 	 */
-	public Device getDevice(String iD){
-		for(int i=0;i<deviceAry.length;i++){
+	Device getDevice(String iD){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null && deviceAry[i].name==iD)){
 				return deviceAry[i];
 			}
@@ -182,37 +184,37 @@ class Simulator {
 	/**
 	 * 		prints current system state for testing
 	 */
-	public void printState(){
+	printState(){
 
-		System.out.println("Device Array");
-		for(int i=0; i<deviceAry.length;i++){
+		console.log("Device Array");
+		for(let i=0; i<deviceAry.length;i++){
 			if(deviceAry[i]!=null){
-				System.out.println("["+i+"]Name: "+deviceAry[i].name+" Type:" + deviceAry[i].getClass());
+				console.log("["+i+"]Name: "+deviceAry[i].name+" Type:" + deviceAry[i].getClass());
 			}
 		}
-		System.out.println();
-		System.out.println("Fiber Array");
-		for(int i=0; i<fiberAry.length;i++){
+		console.log();
+		console.log("Fiber Array");
+		for(let i=0; i<fiberAry.length;i++){
 			if(fiberAry[i]!=null){
-				System.out.println("["+i+"]Name: "+fiberAry[i].name+" D1: "+fiberAry[i].d1+" D2: "+fiberAry[i].d2);
+				console.log("["+i+"]Name: "+fiberAry[i].name+" D1: "+fiberAry[i].d1+" D2: "+fiberAry[i].d2);
 			}
 		}
-		System.out.println();
-		System.out.println("Device to Fiber Array");
-		for(int i=0; i<device_to_fiber.length;i++){
+		console.log();
+		console.log("Device to Fiber Array");
+		for(let i=0; i<device_to_fiber.length;i++){
 			if(device_to_fiber[i][0]!=-1){
 				System.out.print("["+i+"]");
-				for(int b=0;b<5;b++){
+				for(let b=0;b<5;b++){
 					System.out.print(device_to_fiber[i][b]+" ");
 				}
-				System.out.println();
+				console.log();
 			}
 		}
-		System.out.println();
-		System.out.println("Connect Count");
-		for(int i=0; i<connectCount.length;i++){
+		console.log();
+		console.log("Connect Count");
+		for(let i=0; i<connectCount.length;i++){
 			if(connectCount[i]!=0){
-				System.out.println("["+i+"] " + connectCount[i]);
+				console.log("["+i+"] " + connectCount[i]);
 			}
 		}
 	}
@@ -225,7 +227,7 @@ class Simulator {
 	 * @param type a string indicating the type of device to make
 	 * @returns iD of new device or -1 for fail
 	 */
-	public int addDevice(String type, int x, int y){
+	let addDevice(String type, let x, let y){
 		//new device and its ID
 		Device device;
 		String iD = getID();
@@ -277,7 +279,7 @@ class Simulator {
 		device.coordinate[1] = y;
 
 		//find empty spot in device array
-		for(int i=0;i<deviceAry.length;i++){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]==null){
 				deviceAry[i] = device;
 				return Integer.valueOf(deviceAry[i].name);
@@ -291,7 +293,7 @@ class Simulator {
 	 *
 	 * @return new iD
 	 */
-	private String getID(){
+	String getID(){
 		String iD = String.valueOf(currID);
 		currID++;
 		return iD;
@@ -303,8 +305,8 @@ class Simulator {
 	 * @param iD unique ID
 	 * @return fiber found or null when not found
 	 */
-	public Fibre getFiber(String iD){
-		for(int i=0;i<fiberAry.length;i++){
+	Fibre getFiber(String iD){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i]!=null && fiberAry[i].name==iD)){
 				return fiberAry[i];
 			}
@@ -317,8 +319,8 @@ class Simulator {
 	 * @param fb the fiber being searched
 	 * @return index of fiber or -1 for fail
 	 */
-	public int getFiberIndex(Fibre fb){
-		for(int i=0;i<fiberAry.length;i++){
+	let getFiberIndex(Fibre fb){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i]==fb){
 				return i;
 			}
@@ -333,7 +335,7 @@ class Simulator {
 	 * @param port of device where fiber is
 	 * @return string of fiber log or ""
 	 */
-	public String getFiberLog(int iD, int port){
+	String getFiberLog(let iD, let port){
 
 		return "";
 	}
@@ -341,20 +343,20 @@ class Simulator {
 	/**
 	 * 		prints all fibers logs, used for testing
 	 */
-	public void printAllLogs(){
-		for(int i=0;i<fiberAry.length;i++){
+	printAllLogs(){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i]!=null){
-				System.out.println("Fiber "+fiberAry[i].name);
+				console.log("Fiber "+fiberAry[i].name);
 
-				for(int b=0;b<fiberAry[i].log.size();b++){
+				for(let b=0;b<fiberAry[i].log.size();b++){
 					if(fiberAry[i].log.get(b) != null){
-						for(int c=0;c<6;c++){
-							System.out.println(fiberAry[i].log.get(b)[c]);
+						for(let c=0;c<6;c++){
+							console.log(fiberAry[i].log.get(b)[c]);
 						}
 					}
 				}
 
-				System.out.println();
+				console.log();
 			}
 		}
 	}
@@ -364,11 +366,11 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 for success, 1 for fail
 	 */
-	public int deleteDevice(String iD){
-		int index = -1;
+	let deleteDevice(String iD){
+		let index = -1;
 
 		//find device in deviceAry get index
-		for(int i=0;i<deviceAry.length;i++){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null && deviceAry[i].name==String.valueOf(iD))){
 				index = i;
 			}
@@ -378,7 +380,7 @@ class Simulator {
 		if(index==-1)return index;
 
 		//find device in link matrix delete fiber and dependencies
-		for(int i=0;i<device_to_fiber.length;i++){
+		for(let i=0;i<device_to_fiber.length;i++){
 			//when connection found remove dependencies
 			if(device_to_fiber[i][0]==index || device_to_fiber[i][1]==index){
 				removeFiberDependence(deviceAry[device_to_fiber[i][0]],fiberAry[device_to_fiber[i][4]]);
@@ -390,7 +392,7 @@ class Simulator {
 				//remove fiber
 				fiberAry[device_to_fiber[i][4]] = null;
 				//clear line
-				for(int b=0;b<5;b++){
+				for(let b=0;b<5;b++){
 					device_to_fiber[i][b] = -1;
 				}
 			}
@@ -410,10 +412,10 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return 0 for success, 1 for fail
 	 */
-	public int deleteFiber(String iD){
-		int index = -1;
+	let deleteFiber(String iD){
+		let index = -1;
 		//find fiber in fiberAry get index
-		for(int i=0;i<fiberAry.length;i++){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i]!=null && fiberAry[i].name==String.valueOf(iD))){
 				index = i;
 			}
@@ -426,7 +428,7 @@ class Simulator {
 			removeFiberDependence(fiberAry[index].d2, fiberAry[index]);
 
 			//drop connect count for both devices
-			int dIndex = getIndex(fiberAry[index].d1);
+			let dIndex = getIndex(fiberAry[index].d1);
 			if(dIndex==-1)return 1;
 			connectCount[dIndex]--;
 			dIndex = getIndex(fiberAry[index].d2);
@@ -434,9 +436,9 @@ class Simulator {
 			connectCount[dIndex]--;
 
 			//remove entry in device to fiber
-			for(int i=0;i<device_to_fiber.length;i++){
+			for(let i=0;i<device_to_fiber.length;i++){
 				if(device_to_fiber[i][4] == index){
-					for(int b=0;b<5;b++){
+					for(let b=0;b<5;b++){
 						device_to_fiber[i][b] = -1;
 					}
 					break;
@@ -460,8 +462,8 @@ class Simulator {
 	 * @param d1 the device
 	 * @return index or -1 for fail
 	 */
-	private int getIndex(Device d1){
-		for(int i=0;i<deviceAry.length;i++){
+	let getIndex(Device d1){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]==d1){
 				return i;
 			}
@@ -475,7 +477,7 @@ class Simulator {
 	 * @param d1 device considering
 	 * @return 0 success 1 fail
 	 */
-	private int removeFiberDependence(Device device, Fibre fb){
+	let removeFiberDependence(Device device, Fibre fb){
 
 		//splitter
 		if(device.type == 0){
@@ -598,8 +600,8 @@ class Simulator {
 	 * @param fb new fiber
 	 * @return index of placement
 	 */
-	private int addFiber(Fibre fb){
-		for(int i=0;i<fiberAry.length;i++){
+	let addFiber(Fibre fb){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i]==null){
 				fiberAry[i] = fb;
 				return i;
@@ -618,13 +620,13 @@ class Simulator {
 	 * @param port2 port selected on device 2
 	 * @return 0 on success 1 on failure
 	 */
-	public int connectDevices(String iD1, String iD2, int port1, int port2, Fibre fb){
+	let connectDevices(String iD1, String iD2, let port1, let port2, Fibre fb){
 		Device d1 = null;
 		Device d2 = null;
-		int d1Index = -1;
-		int d2Index = -1;
+		let d1Index = -1;
+		let d2Index = -1;
 		//find both devices
-		for(int i=0;i<deviceAry.length;i++){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i]!=null){
 				if(deviceAry[i].name==String.valueOf(iD1))){
 					d1 = deviceAry[i];
@@ -648,7 +650,7 @@ class Simulator {
 		/* returns the result from second connection function which gives
 		 * index of newly added fiber in fiber array or -1 for fail
 		 */
-		int check;
+		let check;
 
 		/* possible connecting fiber */
 		boolean fbExist = false;
@@ -662,7 +664,7 @@ class Simulator {
 
 
 		/* FOUR PORT DEVICE */
-		if(d1.getClass() == Splitter.class){
+		if(d1.getClass() == Splitter.export default class){
 
 			Splitter s1 = (Splitter)d1;
 
@@ -739,7 +741,7 @@ class Simulator {
 		 * 				     3|
 		 *
 		 */
-		} else if(d1.getClass() == Circulator.class){
+		} else if(d1.getClass() == Circulator.export default class){
 			//fail if already connected
 			if(connectCount[d1Index]==3) return 1;
 
@@ -800,7 +802,7 @@ class Simulator {
 		 * 				   3
 		 *
 		 */
-		} else if(d1.getClass() == Mixer.class){
+		} else if(d1.getClass() == Mixer.export default class){
 
 			//fail if already connected
 			if(connectCount[d1Index] == 3) return 1;
@@ -854,7 +856,7 @@ class Simulator {
 			d1 = m1;
 
 		/* TWO PORT DEVICES */
-		} else if (d1.getClass() == AOM.class) {
+		} else if (d1.getClass() == AOM.export default class) {
 			//fail if already connected fully
 			if(connectCount[d1Index]==2) return 1;
 
@@ -893,7 +895,7 @@ class Simulator {
 			//add new device back to array
 			d1 = a1;
 
-		} else if(d1.getClass() == PhotonDetector.class){
+		} else if(d1.getClass() == PhotonDetector.export default class){
 			//fail if already connected fully
 			if(connectCount[d1Index]==2) return 1;
 
@@ -931,7 +933,7 @@ class Simulator {
 			//add new device back to array
 			d1 = p1;
 
-		} else if(d1.getClass() == Component.class){
+		} else if(d1.getClass() == Component.export default class){
 			//fail if already connected fully
 			if(connectCount[d1Index]==2) return 1;
 
@@ -970,7 +972,7 @@ class Simulator {
 			//add new device back to array
 			d1 = c1;
 
-		} else if(d1.getClass() == Filter.class){
+		} else if(d1.getClass() == Filter.export default class){
 			//fail if already connected fully
 			if(connectCount[d1Index]==2) return 1;
 
@@ -1012,7 +1014,7 @@ class Simulator {
 		 * 		4--RECIEVE---()---SEND--2
 		 * 					3
 		 */
-		} else if(d1.getClass() == Isolator.class ){
+		} else if(d1.getClass() == Isolator.export default class ){
 			//fail if already connected fully
 			if(connectCount[d1Index]==2) return 1;
 
@@ -1051,7 +1053,7 @@ class Simulator {
 			d1 = i1;
 
 
-		}else if(d1.getClass() == Divider_Multiplier.class){
+		}else if(d1.getClass() == Divider_Multiplier.export default class){
 				//fail if already connected fully
 				if(connectCount[d1Index]==2) return 1;
 
@@ -1092,7 +1094,7 @@ class Simulator {
 
 
 		/* ONE PORT DEVICES */
-		} else if (d1.getClass() == Laser.class) {
+		} else if (d1.getClass() == Laser.export default class) {
 			//fail if already connected fully
 			if(connectCount[d1Index]==1) return 1;
 
@@ -1119,7 +1121,7 @@ class Simulator {
 			//add new device back to array
 			d1 = l1;
 
-		} else if (d1.getClass() == FrequencySynthesizer.class){
+		} else if (d1.getClass() == FrequencySynthesizer.export default class){
 			//fail if already connected fully
 			if(connectCount[d1Index]==1) return 1;
 
@@ -1149,10 +1151,10 @@ class Simulator {
 
 		//add fiber to fb array if not from load
 		if(!fbExist){
-			int fbIndex = addFiber(fiber);
+			let fbIndex = addFiber(fiber);
 
 			//update connection pair matrix
-			for(int i=0;i<device_to_fiber.length;i++){
+			for(let i=0;i<device_to_fiber.length;i++){
 				if(device_to_fiber[i][0]==-1){
 					device_to_fiber[i][0] = d1Index;
 					device_to_fiber[i][1] = d2Index;
@@ -1182,10 +1184,10 @@ class Simulator {
 	 * @param d2Index index in device array
 	 * @return 0 success, 1 if fail
 	 */
-	private int connectSecondDevice(Fibre fb, Device d2, int port, int index, boolean fiberMade){
+	let connectSecondDevice(Fibre fb, Device d2, let port, let index, boolean fiberMade){
 
 		/* FOUR PORT DEVICE */
-		if(d2.getClass() == Splitter.class){
+		if(d2.getClass() == Splitter.export default class){
 
 			Splitter s1 = (Splitter)d2;
 
@@ -1218,7 +1220,7 @@ class Simulator {
 		 * 				     3|
 		 *
 		 */
-		} else if(d2.getClass() == Circulator.class){
+		} else if(d2.getClass() == Circulator.export default class){
 			//fail if already connected
 			if(connectCount[index]==3) return 1;
 
@@ -1246,7 +1248,7 @@ class Simulator {
 		 * 				   3
 		 *
 		 */
-		} else if(d2.getClass() == Mixer.class){
+		} else if(d2.getClass() == Mixer.export default class){
 
 			//fail if already connected
 			if(connectCount[index] == 3) return 1;
@@ -1266,7 +1268,7 @@ class Simulator {
 			d2 = m1;
 
 		/* TWO PORT DEVICES */
-		} else if (d2.getClass() == AOM.class) {
+		} else if (d2.getClass() == AOM.export default class) {
 			//fail if already connected fully
 			if(connectCount[index]==2) return 1;
 
@@ -1286,7 +1288,7 @@ class Simulator {
 			//add new device back to array
 			d2 = a1;
 
-		} else if(d2.getClass() == PhotonDetector.class){
+		} else if(d2.getClass() == PhotonDetector.export default class){
 			//fail if already connected fully
 			if(connectCount[index]==2) return 1;
 
@@ -1302,7 +1304,7 @@ class Simulator {
 			//add new device back to array
 			d2 = p1;
 
-		} else if(d2.getClass() == Component.class){
+		} else if(d2.getClass() == Component.export default class){
 			//fail if already connected fully
 			if(connectCount[index]==2) return 1;
 
@@ -1318,7 +1320,7 @@ class Simulator {
 			//add new device back to array
 			d2 = c1;
 
-		} else if(d2.getClass() == Filter.class){
+		} else if(d2.getClass() == Filter.export default class){
 			//fail if already connected fully
 			if(connectCount[index]==2) return 1;
 
@@ -1338,7 +1340,7 @@ class Simulator {
 		 * 		4--RECIEVE---()---SEND--2
 		 * 					3
 		 */
-		} else if(d2.getClass() == Isolator.class ){
+		} else if(d2.getClass() == Isolator.export default class ){
 			//fail if already connected fully
 			if(connectCount[index]==2) return 1;
 
@@ -1355,7 +1357,7 @@ class Simulator {
 			d2 = i1;
 
 
-		} else if(d2.getClass() == Divider_Multiplier.class){
+		} else if(d2.getClass() == Divider_Multiplier.export default class){
 				//fail if already connected fully
 				if(connectCount[index]==2) return 1;
 
@@ -1373,7 +1375,7 @@ class Simulator {
 
 
 		/* ONE PORT DEVICES */
-		} else if (d2.getClass() == Laser.class) {
+		} else if (d2.getClass() == Laser.export default class) {
 			//fail if already connected fully
 			if(connectCount[index]==1) return 1;
 
@@ -1387,7 +1389,7 @@ class Simulator {
 			//add new device back to array
 			d2 = l1;
 
-		} else if (d2.getClass() == FrequencySynthesizer.class){
+		} else if (d2.getClass() == FrequencySynthesizer.export default class){
 			//fail if already connected fully
 			if(connectCount[index]==1) return 1;
 
@@ -1432,7 +1434,7 @@ class Simulator {
 	 * @param min new minimum value
 	 * @return 0 on success 1 on failure
 	 */
-	public int setMinPower( double min){
+	let setMinPower( double min){
 		Globals.MIN_POWER = min;
 		return 0;
 	}
@@ -1447,10 +1449,10 @@ class Simulator {
 	 * @param pwd the path of the save file
 	 * @return 0 on success 1 on failure
 	 */
-	public int save(String pwd){
+	let save(String pwd){
 		boolean flag = false ;
 		//make sure file saves with ".optc" extension
-		for(int b = pwd.length()-1;b>=0;b--){
+		for(let b = pwd.length()-1;b>=0;b--){
 			//if dot found and five from end possible ".optc"
 			if(pwd.charAt(b) == '.' && b == pwd.length()-5){
 				if(pwd.charAt(b+1) != 'o')return 1;
@@ -1494,10 +1496,10 @@ class Simulator {
 		}
 		//**********************************save all the devide in the device array to pwd*********************************
 		Device d1 = null;
-		for(int i=0;i<deviceAry.length;i++){
+		for(let i=0;i<deviceAry.length;i++){
 			if(deviceAry[i] != null){
 				d1 = deviceAry[i];
-				if(d1.getClass() == Splitter.class){
+				if(d1.getClass() == Splitter.export default class){
 					String s = ((Splitter)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1508,7 +1510,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == AOM.class){
+				if(d1.getClass() == AOM.export default class){
 					String s = ((AOM)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1519,7 +1521,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Circulator.class){
+				if(d1.getClass() == Circulator.export default class){
 					String s = ((Circulator)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1530,7 +1532,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Isolator.class){
+				if(d1.getClass() == Isolator.export default class){
 					String s = ((Isolator)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1541,7 +1543,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Laser.class){
+				if(d1.getClass() == Laser.export default class){
 					String s = ((Laser)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1552,7 +1554,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Mixer.class){
+				if(d1.getClass() == Mixer.export default class){
 					String s = ((Mixer)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1563,7 +1565,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == PhotonDetector.class){
+				if(d1.getClass() == PhotonDetector.export default class){
 					String s = ((PhotonDetector)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1574,7 +1576,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Component.class){
+				if(d1.getClass() == Component.export default class){
 					String s = ((Component)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1585,7 +1587,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Divider_Multiplier.class){
+				if(d1.getClass() == Divider_Multiplier.export default class){
 					String s = ((Divider_Multiplier)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1596,7 +1598,7 @@ class Simulator {
 						   return 1;
 					}
 				}
-				if(d1.getClass() == Filter.class){
+				if(d1.getClass() == Filter.export default class){
 					String s = ((Filter)d1).Object_to_Jason_String(i);
 					try {
 						rw.write(s);
@@ -1620,7 +1622,7 @@ class Simulator {
 			return 1;
 		}
 		//save all the non-null fiber in the fiber array
-		for(int i=0;i<fiberAry.length;i++){
+		for(let i=0;i<fiberAry.length;i++){
 			if(fiberAry[i] != null){
 				fb = fiberAry[i];
 				String s = fb.Object_to_Jason_String(i);
@@ -1660,7 +1662,7 @@ class Simulator {
 			ioe.printStackTrace();
 			return 1;
 		}
-		for(int i=0; i< device_to_fiber.length; i++     ){
+		for(let i=0; i< device_to_fiber.length; i++     ){
 			if(device_to_fiber[i][0] != -1){
 				String s = Globals.toString(device_to_fiber[i]);
 				try {
@@ -1682,7 +1684,7 @@ class Simulator {
 			ioe.printStackTrace();
 			return 1;
 		}
-		for(int i=0; i< connectCount.length; i++     ){
+		for(let i=0; i< connectCount.length; i++     ){
 			if(connectCount[i] != 0){
 				int[] a = new int[2];
 				a[0] = connectCount[i];						//save it in an array [x,y]  x is the number of connection as represented by connectioncount[i]. while y is the index of that count in the connectioncount array
@@ -1713,10 +1715,10 @@ class Simulator {
 	 * 		load from path if path black make new unsaved sim
 	 * @return 0 on success 1 on failure
 	 */
-	public static Simulator load(String pwd){
+	static Simulator load(String pwd){
 
 		//make sure file has ".json" extension
-		for(int b = pwd.length()-1;b>=0;b--){
+		for(let b = pwd.length()-1;b>=0;b--){
 			//if dot found and five from end possible ".optc"
 			if(pwd.charAt(b) == '.' && b == pwd.length()-5){
 				if(pwd.charAt(b+1) != 'o')return null;
@@ -1749,7 +1751,7 @@ class Simulator {
 		//read the first line for currID value
 		try {
 			String currID_String = rd.readLine();
-			int currID = Integer.parseInt(currID_String);
+			let currID = Integer.parseInt(currID_String);
 			sim.currID = currID;								//assiging it to the currID in sim instance
 		}
 		catch (IOException ioe) {
@@ -1761,12 +1763,12 @@ class Simulator {
 			String line = rd.readLine();
 			Device device = null;
 			while( line != null  && !line=="fiber")) {			//reading all the lines before "fiber"
-				System.out.println(line);
+				console.log(line);
 				try {
 					Object obj=parser.parse(line);
 					Map array=(Map)obj;
-					String type = (String) array.get("class_type");
-					System.out.println(type);
+					String type = (String) array.get("export default class_type");
+					console.log(type);
 					if(type=="Splitter")){
 						String name = (String) array.get("name");
 						String label = (String) array.get("label");
@@ -1777,7 +1779,7 @@ class Simulator {
 						boolean enableRef = (Boolean) array.get("boolRef");
 						double primary_power = (Double) array.get("primary_power");
 						double secondary_power = (Double) array.get("secondary_power");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Splitter(name,absorption,reflection,enableRef,primary_power, secondary_power);
 						device.label = label;
 						device.type = 0;
@@ -1793,7 +1795,7 @@ class Simulator {
 						double absorption = (Double) array.get("absorption");
 						double pConst = (Double) array.get("pConst");
 						boolean enableRef = (Boolean) array.get("boolRef");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new PhotonDetector(name,absorption,reflection,enableRef);
 						((PhotonDetector)device).pConst = pConst ;
 						device.label = label;
@@ -1811,7 +1813,7 @@ class Simulator {
 						double absorption = (Double) array.get("absorption");
 						boolean enableRef = (Boolean) array.get("boolRef");
 						double pConst = (Double)array.get("pConst");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Mixer(name,absorption,reflection,enableRef,pConst);
 						device.label = label;
 						device.coordinate[0] = Integer.parseInt(x);
@@ -1826,7 +1828,7 @@ class Simulator {
 						String y = (((ArrayList)array.get("coordinate")).get(1)).toString();
 						double power = (Double) array.get("power");
 						double freq = (Double) array.get("freq");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Laser(name,sigName,power,freq); //(5dB, 200THz)
 						device.label = label;
 						device.type = 3;
@@ -1841,7 +1843,7 @@ class Simulator {
 						double reflection = (Double) array.get("reflection");
 						double absorption = (Double) array.get("absorption");
 						boolean enableRef = (Boolean) array.get("boolRef");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Isolator(name,absorption,reflection,enableRef);
 						device.label = label;
 						device.type = 4;
@@ -1859,7 +1861,7 @@ class Simulator {
 						double frequency_upper_limit = (Double) array.get("frequency_upper_limit");
 						double frequency_lower_limit = (Double) array.get("frequency_lower_limit");
 						char type_of_filter = ((String)array.get("type")).charAt(0);
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Filter(name,absorption,reflection,enableRef, frequency_upper_limit,frequency_lower_limit );
 						device.label = label;
 						device.coordinate[0] = Integer.parseInt(x);
@@ -1875,7 +1877,7 @@ class Simulator {
 						double reflection = (Double) array.get("reflection");
 						double absorption = (Double) array.get("absorption");
 						boolean enableRef = (Boolean) array.get("boolRef");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Component(name,absorption,reflection, enableRef);
 						device.label = label;
 						device.coordinate[0] = Integer.parseInt(x);
@@ -1891,7 +1893,7 @@ class Simulator {
 						double reflection = (Double) array.get("reflection");
 						double absorption = (Double) array.get("absorption");
 						boolean enableRef = (Boolean) array.get("boolRef");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						double abs1_2 = (Double) array.get("abs1_2");
 						double abs2_3 = (Double) array.get("abs2_3");
 						device = new Circulator(name,absorption,reflection,enableRef,abs1_2,abs2_3);
@@ -1910,7 +1912,7 @@ class Simulator {
 						boolean enableRef = (Boolean) array.get("boolRef");
 						double frequency_shift = (Double) array.get("frequency_shift");
 						boolean perturbation_flag = (Boolean) array.get("perturbation_flag");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new AOM(name,absorption,reflection,enableRef,frequency_shift);
 						device.label = label;
 						((AOM)device).perturbation_flag = perturbation_flag;
@@ -1928,7 +1930,7 @@ class Simulator {
 						double absorption = (Double) array.get("absorption");
 						boolean enableRef = (Boolean) array.get("boolRef");
 						double effect = (Double) array.get("effect");
-						int index = Integer.parseInt( array.get("index").toString());
+						let index = Integer.parseInt( array.get("index").toString());
 						device = new Divider_Multiplier(name,absorption,reflection, enableRef,effect);
 						device.label = label;
 						device.coordinate[0] = Integer.parseInt(x);
@@ -1948,15 +1950,15 @@ class Simulator {
 			line = rd.readLine();				//get the line after "fiber"
 			Fibre fb = null;
 			while(line != null  && !line=="globals")) {
-				System.out.println(line);
+				console.log(line);
 				try {
 					Object obj=parser.parse(line);
 					Map array=(Map)obj;
-					String type = (String) array.get("class_type");
-					System.out.println(type);
+					String type = (String) array.get("export default class_type");
+					console.log(type);
 					String name = (String) array.get("name");
 					double absorption = (Double) array.get("absorption");
-					int index = Integer.parseInt( array.get("index").toString());
+					let index = Integer.parseInt( array.get("index").toString());
 					fb = new Fibre(name, null, null, absorption);
 					sim.fiberAry[index] = fb;
 				}catch (ParseException e) {
@@ -1967,12 +1969,12 @@ class Simulator {
 			}
 			line = rd.readLine();				//get the line after "globals"
 			while(line != null  && !line=="device to fiber")) {
-				System.out.println(line);
+				console.log(line);
 				try {
 					Object obj=parser.parse(line);
 					Map array=(Map)obj;
-					String type = (String) array.get("class_type");
-					System.out.println(type);
+					String type = (String) array.get("export default class_type");
+					console.log(type);
 					double MIN_POWER = (Double) array.get("MIN_POWER");
 					Globals.MIN_POWER = MIN_POWER;
 				}catch (ParseException e) {
@@ -1983,25 +1985,25 @@ class Simulator {
 			}
 			/*get the line after "device to fiber"*/
 			line = rd.readLine();
-			int counter = 0;							//a counter used to store numbers back into device to fiber array
+			let counter = 0;							//a counter used to store numbers back into device to fiber array
 			while(line != null && !line=="connection count") ) {
-				System.out.println(line);
-				//*****************converting the string back in to int array****************************
+				console.log(line);
+				//*****************converting the string back in to let array****************************
 				String[] items = line.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
 				int[] results = new int[items.length];						//
-				for (int i = 0; i < items.length; i++) {
+				for (let i = 0; i < items.length; i++) {
 				    try {
 				        results[i] = Integer.parseInt(items[i]);
-				        System.out.println(results[i]);
+				        console.log(results[i]);
 				    } catch (NumberFormatException nfe) {					//return null if the number format is wrong
 				    	return null;
 				    }
 				}
-				int d1_index = results[0];
-				int d2_index = results[1];
-				int p1 = results[2];
-				int p2 = results[3];
-				int fb_index = results[4];
+				let d1_index = results[0];
+				let d2_index = results[1];
+				let p1 = results[2];
+				let p2 = results[3];
+				let fb_index = results[4];
 				sim.device_to_fiber[counter][0] = d1_index;
 				sim.device_to_fiber[counter][1] = d2_index;
 				sim.device_to_fiber[counter][2] = p1;
@@ -2025,14 +2027,14 @@ class Simulator {
 			/*get the line after "connection count"*/
 			line = rd.readLine();
 			while(line != null  ) {
-				System.out.println(line);
-				//*****************converting the string back in to int array****************************
+				console.log(line);
+				//*****************converting the string back in to let array****************************
 				String[] items = line.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
 				int[] results = new int[items.length];						//
-				for (int i = 0; i < items.length; i++) {
+				for (let i = 0; i < items.length; i++) {
 				    try {
 				        results[i] = Integer.parseInt(items[i]);
-				        System.out.println(results[i]);
+				        console.log(results[i]);
 				    } catch (NumberFormatException nfe) {					//return null if the number format is wrong
 				    	return null;
 				    }
@@ -2068,7 +2070,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return custom label name of device
 	 */
-//	public String getLabel(String iD){
+//	String getLabel(String iD){
 //		Device d1 = getDevice(iD);
 //		return d1.label;
 //	}
@@ -2078,7 +2080,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 if success
 	 */
-	public int setLabel(String label,String iD){
+	let setLabel(String label,String iD){
 		Device d1 = getDevice(iD);
 		d1.label = label;
 		return 0;
@@ -2092,7 +2094,7 @@ class Simulator {
 	 * @param min new minimum value
 	 * @return 0 on success 1 on failure
 	 */
-	public int chngMinPower( double min){
+	let chngMinPower( double min){
 		Globals.MIN_POWER = min;
 		return 0;
 	}
@@ -2101,7 +2103,7 @@ class Simulator {
 	 * 		Get the minimum power threshold for reflection
 	 * @return minimum power threshold
 	 */
-	public double getMinPower(){
+	double getMinPower(){
 		return Globals.MIN_POWER;
 	}
 
@@ -2110,7 +2112,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return name of device
 	 */
-	public String getName(String iD){
+	String getName(String iD){
 		Device d1 = getDevice(iD);
 		return d1.name;
 	}
@@ -2120,7 +2122,7 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return name of fiber
 	 */
-	public String getFiberName(String iD){
+	String getFiberName(String iD){
 		Fibre fb = getFiber(iD);
 		return fb.name;
 	}
@@ -2130,7 +2132,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return type of device
 	 */
-	public int getType(String iD){
+	let getType(String iD){
 		Device d1 = getDevice(iD);
 		return d1.type;
 	}
@@ -2140,7 +2142,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 for success, 1 for fail
 	 */
-	public int toggleRef(String iD){
+	let toggleRef(String iD){
 		Device d1 = getDevice(iD);
 		d1.boolRef = !(d1.boolRef);
 		return 0;
@@ -2151,7 +2153,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return state of reflection (ON/OFF)
 	 */
-	public boolean getRefTogl(String iD){
+	boolean getRefTogl(String iD){
 		Device d1 = getDevice(iD);
 		return d1.boolRef;
 	}
@@ -2162,7 +2164,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setPConst(double pc,String iD){
+	let setPConst(double pc,String iD){
 		Device d1 = getDevice(iD);
 
 		if(d1.type == 1){
@@ -2182,7 +2184,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return power constant
 	 */
-	public double getPConst(String iD){
+	double getPConst(String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 1){
 			PhotonDetector pd = (PhotonDetector)d1;
@@ -2200,7 +2202,7 @@ class Simulator {
 	 * @param iD ID of device
 	 * @return 0 on success, 1 for fail
 	 */
-	public int setEffect(double effect,String iD){
+	let setEffect(double effect,String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 9){
 			Divider_Multiplier dm = (Divider_Multiplier)d1;
@@ -2215,7 +2217,7 @@ class Simulator {
 	 * @param iD ID of device
 	 * @return Divider_Multiplier effect or -1 for fail
 	 */
-	public double getEffect(String iD){
+	double getEffect(String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 9){
 			Divider_Multiplier dm = (Divider_Multiplier)d1;
@@ -2230,7 +2232,7 @@ class Simulator {
 	 * @param iD of laser or FrequencySynthesizer
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setSigName(String name, String iD){
+	let setSigName(String name, String iD){
 		Device d1 = getDevice(iD);
 		//if laser
 		if(d1.type == 3){
@@ -2251,7 +2253,7 @@ class Simulator {
 	 * @param iD of laser or FrequencySynthesizer
 	 * @return signal name
 	 */
-	public String getSigName(String iD){
+	String getSigName(String iD){
 		Device d1 = getDevice(iD);
 		//if laser
 		if(d1.type == 3){
@@ -2274,7 +2276,7 @@ class Simulator {
 	 * @param iD
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setSigPower(double pwr,String iD){
+	let setSigPower(double pwr,String iD){
 		Device d1 = getDevice(iD);
 		//if laser
 		if(d1.type == 3){
@@ -2295,7 +2297,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return generated signal power
 	 */
-	public double getSigPower(String iD){
+	double getSigPower(String iD){
 		Device d1 = getDevice(iD);
 		double pwr = -1;
 		//if laser
@@ -2314,7 +2316,7 @@ class Simulator {
 	 * @param iD
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setSigFreq(double freq,String iD){
+	let setSigFreq(double freq,String iD){
 		Device d1 = getDevice(iD);
 		//if laser
 		if(d1.type == 3){
@@ -2330,7 +2332,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return generated signal frequency
 	 */
-	public double getSigFreq(String iD){
+	double getSigFreq(String iD){
 		Device d1 = getDevice(iD);
 		double freq = -1;
 		//if laser
@@ -2348,7 +2350,7 @@ class Simulator {
 	 * @param iD
 	 * @return
 	 */
-	public int setAbs(double abs, String iD){
+	let setAbs(double abs, String iD){
 		Device d1 = getDevice(iD);
 		d1.absorption = abs;
 		return 0;
@@ -2359,7 +2361,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return absorption property
 	 */
-	public double getAbs(String iD){
+	double getAbs(String iD){
 		Device d1 = getDevice(iD);
 		return d1.absorption;
 	}
@@ -2372,7 +2374,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setRef(double ref, String iD){
+	let setRef(double ref, String iD){
 		Device d1 = getDevice(iD);
 		d1.reflection = ref;
 		return 0;
@@ -2383,7 +2385,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return reflection property
 	 */
-	public double getRef(String iD){
+	double getRef(String iD){
 		Device d1 = getDevice(iD);
 		return d1.reflection;
 	}
@@ -2394,7 +2396,7 @@ class Simulator {
 	 * @param iD ID of splitter
 	 * @return 0 on success, 1 on fail
 	 */
-	public int setPrimary(double pwr, String iD){
+	let setPrimary(double pwr, String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 0){
 			Splitter s1 = (Splitter)d1;
@@ -2409,7 +2411,7 @@ class Simulator {
 	 * @param iD ID of splitter
 	 * @return power or -1
 	 */
-	public double getPrimary(String iD){
+	double getPrimary(String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 0){
 			Splitter s1 = (Splitter)d1;
@@ -2424,7 +2426,7 @@ class Simulator {
 	 * @param iD ID of splitter
 	 * @return 0 on success, 1 on fail
 	 */
-	public int setSecondary(double pwr, String iD){
+	let setSecondary(double pwr, String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 0){
 			Splitter s1 = (Splitter)d1;
@@ -2439,7 +2441,7 @@ class Simulator {
 	 * @param iD ID of splitter
 	 * @return power or -1
 	 */
-	public double getSecondary(String iD){
+	double getSecondary(String iD){
 		Device d1 = getDevice(iD);
 		if(d1.type == 0){
 			Splitter s1 = (Splitter)d1;
@@ -2456,7 +2458,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setLowerLim(double lwr, String iD){
+	let setLowerLim(double lwr, String iD){
 		Device d1 = getDevice(iD);
 		//if filter
 		if(d1.type == 5){
@@ -2472,7 +2474,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return lower limit property
 	 */
-	public double getLowerLim(String iD){
+	double getLowerLim(String iD){
 		Device d1 = getDevice(iD);
 		Globals.log(d1.getClass().toString());
 		Filter f1 = (Filter)d1;
@@ -2486,7 +2488,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setUpperLim(double upr, String iD){
+	let setUpperLim(double upr, String iD){
 		Device d1 = getDevice(iD);
 		//if filter
 		if(d1.type == 5){
@@ -2502,7 +2504,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return upper limit property
 	 */
-	public double getUpperLim(String iD){
+	double getUpperLim(String iD){
 		Device d1 = getDevice(iD);
 		Filter f1 = (Filter)d1;
 		return f1.frequency_upper_limit;
@@ -2514,7 +2516,7 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return 0 for success, 1 for fail
 	 */
-	public int toglPertFiber(String iD){
+	let toglPertFiber(String iD){
 		Fibre fb = getFiber(iD);
 		fb.perturbation_flag = !fb.perturbation_flag;
 		return 0;
@@ -2525,7 +2527,7 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return perturbation value
 	 */
-	public boolean getPertFiber(String iD){
+	boolean getPertFiber(String iD){
 		Fibre fb = getFiber(iD);
 		return fb.perturbation_flag;
 	}
@@ -2535,7 +2537,7 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return log string
 	 */
-	public ArrayList<String[]> getLog(String iD){
+	ArrayList<String[]> getLog(String iD){
 		Fibre fb = getFiber(iD);
 		return fb.log;
 	}
@@ -2546,7 +2548,7 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setFiberAbs(double abs, String iD){
+	let setFiberAbs(double abs, String iD){
 		Fibre fb = getFiber(iD);
 		fb.absorption = abs;
 		return 0;
@@ -2557,7 +2559,7 @@ class Simulator {
 	 * @param iD of fiber
 	 * @return absorption property
 	 */
-	public double getFiberAbs(String iD){
+	double getFiberAbs(String iD){
 		Fibre fb = getFiber(iD);
 		return fb.absorption;
 	}
@@ -2568,7 +2570,7 @@ class Simulator {
 	 * @param iD of circulator
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setAbs1_2(double abs, String iD){
+	let setAbs1_2(double abs, String iD){
 		Device d1 = getDevice(iD);
 		//if Circulator
 		if(d1.type == 7){
@@ -2585,7 +2587,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return absorption property
 	 */
-	public double getAbs1_2(String iD){
+	double getAbs1_2(String iD){
 		Device d1 = getDevice(iD);
 		Circulator c1 = (Circulator)d1;
 		return c1.abs1_2;
@@ -2598,7 +2600,7 @@ class Simulator {
 	 * @param iD of circulator
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setAbs2_3(double abs, String iD){
+	let setAbs2_3(double abs, String iD){
 		Device d1 = getDevice(iD);
 		//if Circulator
 		if(d1.type == 7){
@@ -2615,7 +2617,7 @@ class Simulator {
 	 * @param iD of device
 	 * @return absorption property
 	 */
-	public double getAbs2_3(String iD){
+	double getAbs2_3(String iD){
 		Device d1 = getDevice(iD);
 		Circulator c1 = (Circulator)d1;
 		return c1.abs2_3;
@@ -2627,7 +2629,7 @@ class Simulator {
 	 * @param iD of AOM
 	 * @return 0 for success, 1 for fail
 	 */
-	public int setFS(double fs, String iD){
+	let setFS(double fs, String iD){
 		Device d1 = getDevice(iD);
 		//if AOM
 		if(d1.type == 8){
@@ -2643,7 +2645,7 @@ class Simulator {
 	 * @param iD of AOM
 	 * @return frequency shift property
 	 */
-	public double getFS(String iD){
+	double getFS(String iD){
 		Device d1 = getDevice(iD);
 		AOM a1 = (AOM)d1;
 		return a1.frequency_shift;
@@ -2654,7 +2656,7 @@ class Simulator {
 	 * @param iD of AOM
 	 * @return 0 for success, 1 for fail
 	 */
-	public int toglPertAOM(String iD){
+	let toglPertAOM(String iD){
 		Device d1 = getDevice(iD);
 		//if AOM
 		if(d1.type == 8){
@@ -2670,7 +2672,7 @@ class Simulator {
 	 * @param iD of AOM
 	 * @return perturbation value
 	 */
-	public boolean getPertAOM(String iD){
+	boolean getPertAOM(String iD){
 		Device d1 = getDevice(iD);
 		AOM a1 = (AOM)d1;
 		return a1.perturbation_flag;

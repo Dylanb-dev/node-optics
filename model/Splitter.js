@@ -1,6 +1,8 @@
 'use-strict';
 
-class Splitter extends Device {
+const Device = require('./Device.js');
+
+export default class Splitter extends Device {
 
   /**
    *
@@ -13,7 +15,7 @@ class Splitter extends Device {
    * @param absS
    * @param absW
    */
-  public Splitter(String name, double abs, double ref, boolean enableRef,
+  Splitter(String name, double abs, double ref, boolean enableRef,
     double power1, double power2) {
 
     //connecting fibers , north, east, south, west
@@ -46,7 +48,7 @@ class Splitter extends Device {
    */
   @
   Override
-  public void moveSignal(Signal signal) {
+  moveSignal(Signal signal) {
     //add device effects
     deviceEffect(signal);
     Globals.log("inside the move signal method");
@@ -136,7 +138,7 @@ class Splitter extends Device {
    */
   @
   Override
-  public void reflectSignal(Signal sig) {
+  reflectSignal(Signal sig) {
     if (sig.sender==fbNorth.name) {
       sig.sender = name;
       fbNorth.moveSignal(sig);
@@ -153,18 +155,18 @@ class Splitter extends Device {
   }
 
   /**
-   * 	@param int index the index of this device in the device array
+   * 	@param let index the index of this device in the device array
    * 	@return a Json string that contains all the instance variables
    */
   @
   Override
-  public String Object_to_Jason_String(int index) {
+  String Object_to_Jason_String(let index) {
     JSONArray list1 = new JSONArray();
     list1.add(this.coordinate[0]);
     list1.add(this.coordinate[1]);
 
     Map < String, Serializable > obj = new LinkedHashMap < String, Serializable > ();
-    obj.put("class_type", this.getClass().getSimpleName().toString());
+    obj.put("export default class_type", this.getClass().getSimpleName().toString());
     obj.put("name", this.name);
     obj.put("coordinate", list1);
     obj.put("reflection", new Double(this.reflection));
@@ -176,16 +178,16 @@ class Splitter extends Device {
     obj.put("index", index);
 
     String jsonText = JSONValue.toJSONString(obj);
-    System.out.println(jsonText);
+    console.log(jsonText);
     return jsonText;
   }
 
   /**
-   * a method belong to slitter class, receive a jsonText, retract all the information from the text and reconstruct the splitter
+   * a method belong to slitter export default class, receive a jsonText, retract all the information from the text and reconstruct the splitter
    * @param jsonText
    * @return the index of this splitter in the device array
    */
-  public static int Decode_Jason_String_to_Object(String jsonText) {
+  static let Decode_Jason_String_to_Object(String jsonText) {
 
     return -1;
   }

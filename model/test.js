@@ -1,13 +1,28 @@
-'use strict';
-
+import Device from './model/Device.js';
+import AOM from './model/AOM.js';
+import Circulator from './model/Circulator.js';
+import Component from './model/Component.js';
+import Divider_Multiplier from './model/Divider_Multiplier.js';
+import FiberLink from './model/FiberLink.js';
+import Fibre from './model/Fibre.js';
+import Filter from './model/Filter.js';
+import FrequencySynthesizer from './model/FrequencySynthesizer.js';
+import Globals from './model/Globals.js';
+import Isolator from './model/Isolator.js';
+import Laser from './model/Laser.js';
+import Mixer from './model/Mixer.js';
+import PhotonDetector from './model/PhotonDetector.js';
+import Signal from './model/Signal.js';
+import Simulator from './model/Simulator.js';
+import Splitter from './model/Splitter.js';
 /**
  *		Class for testing of the software. Including the gui and simulation of the optical fiber model
  *
  */
 
-class test {
+export default class test {
 
-  //test0();
+  test0()
   //test1();
   //test2();
   //test3();
@@ -23,31 +38,31 @@ class test {
   //test13();
 
   //test17();
-  test18();
+  //test18();
 
 
-  public static void test0() {
-      System.out.println(Globals.delta);
-      Signal a = new Signal(2, 2, "as", "asd");
-      Signal b = new Signal(2, 3, "asd", "asdfa");
-      System.out.println(a.delta_f.length + "this is it");
+  test0() {
+      console.log(Globals.delta);
+      let a = new Signal(2, 2, "as", "asd");
+      let b = new Signal(2, 3, "asd", "asdfa");
+      console.log(a.delta_f.length + "this is it");
 
     }
     /*
      * 		test basic construction of simulation and basic run
      * 		with mirror reflecting signal back
-     * 		laser --- fiber ---- component --- fiber --- mirror
+     * 		let --- fiber ---- let --- fiber --- mirror
      */
-  public static void test1() {
+  test1() {
 
     //drag and drop initilizes these objects
-    Laser lazer = new Laser("Lazer1", "master", 10, 400);
-    Component cmp = new Component("Amp1", 0, 0, false);
-    Component mirror = new Component("Mirror1", 0, 0, true);
+    let lazer = new Laser("Lazer1", "master", 10, 400);
+    let cmp = new Component("Amp1", 0, 0, false);
+    let mirror = new Component("Mirror1", 0, 0, true);
 
     //link drawn between initlizes fiber and links devices
-    Fibre fb = new Fibre("Fiber1", lazer, cmp, 0);
-    Fibre fb2 = new Fibre("Fiber2", cmp, mirror, 0);
+    let fb = new Fibre("Fiber1", lazer, cmp, 0);
+    let fb2 = new Fibre("Fiber2", cmp, mirror, 0);
     lazer.fb1 = fb;
     cmp.fb1 = fb;
     cmp.fb2 = fb2;
@@ -56,9 +71,9 @@ class test {
     //press simulate!!!
     lazer.moveSignal();
 
-    System.out.println("");
-    System.out.println(fb.log);
-    System.out.println(fb2.log);
+    console.log("");
+    console.log(fb.log);
+    console.log(fb2.log);
 
   }
 
@@ -69,26 +84,26 @@ class test {
    * 								|
    * 							  fiber2
    * 								|
-   * 		laser --- fiber1 ---- splitter --- fiber3 --- mirror
+   * 		let --- fiber1 ---- let --- fiber3 --- mirror
    * 								|
    * 							  fiber4
    * 								|
    * 							component2
    */
-  public static void test2() {
+  test2() {
 
     //drag and drop initializes these objects
-    Laser lazer = new Laser("Lazer1", "master", 10, 400);
-    Splitter split = new Splitter("split1", 0, 0, false, -3, -3);
-    Component cmp1 = new Component("Amp1", 0, 0, false);
-    Component cmp2 = new Component("Amp1", 0, 0, false);
-    Component mirror = new Component("Mirror1", 0, 0, true);
+    let lazer = new Laser("Lazer1", "master", 10, 400);
+    let split = new Splitter("split1", 0, 0, false, -3, -3);
+    let cmp1 = new Component("Amp1", 0, 0, false);
+    let cmp2 = new Component("Amp1", 0, 0, false);
+    let mirror = new Component("Mirror1", 0, 0, true);
 
     //link drawn between initializes fiber and links devices
-    Fibre fb1 = new Fibre("Fiber1", lazer, split, 0);
-    Fibre fb2 = new Fibre("Fiber2", split, cmp1, 0);
-    Fibre fb3 = new Fibre("Fiber3", split, mirror, 0);
-    Fibre fb4 = new Fibre("Fiber4", split, cmp2, 0);
+    let fb1 = new Fibre("Fiber1", lazer, split, 0);
+    let fb2 = new Fibre("Fiber2", split, cmp1, 0);
+    let fb3 = new Fibre("Fiber3", split, mirror, 0);
+    let fb4 = new Fibre("Fiber4", split, cmp2, 0);
 
     lazer.fb1 = fb1;
     split.fbWest = fb1;
@@ -102,15 +117,15 @@ class test {
     //press simulate!!!
     lazer.moveSignal();
 
-    System.out.println("");
-    System.out.println(fb1.log);
-    System.out.println(fb2.log);
-    System.out.println(fb3.log);
-    System.out.println(fb4.log);
+    console.log("");
+    console.log(fb1.log);
+    console.log(fb2.log);
+    console.log(fb3.log);
+    console.log(fb4.log);
   }
 
 
-  public static void test3() {
+  test3() {
 
     /*
      * 		test more complicated circuit with splitter
@@ -119,7 +134,7 @@ class test {
      * 								|
      * 							  fiber2
      * 								|
-     * 		laser --- fiber1 ---- splitter --- fiber3 --- mirror
+     * 		let --- fiber1 ---- let --- fiber3 --- mirror
      * 								|
      * 							  fiber4
      * 								|
@@ -128,17 +143,17 @@ class test {
      */
 
     //drag and drop initializes these objects
-    Laser lazer = new Laser("Lazer1", "master", 10, 400);
-    Splitter split = new Splitter("split1", 0, 0, false, -3, -3);
-    Component mirror2 = new Component("Mirror2", 0, 0, true);
-    PhotonDetector pd2 = new PhotonDetector("photon detector", 0, 0, false);
-    Component mirror = new Component("Mirror1", 0, 0, true);
+    let lazer = new Laser("Lazer1", "master", 10, 400);
+    let split = new Splitter("split1", 0, 0, false, -3, -3);
+    let mirror2 = new Component("Mirror2", 0, 0, true);
+    let pd2 = new PhotonDetector("photon detector", 0, 0, false);
+    let mirror = new Component("Mirror1", 0, 0, true);
 
     //link drawn between initializes fiber and links devices
-    Fibre fb1 = new Fibre("Fiber1", lazer, split, 0);
-    Fibre fb2 = new Fibre("Fiber2", split, mirror2, 0);
-    Fibre fb3 = new Fibre("Fiber3", split, mirror, 0);
-    Fibre fb4 = new Fibre("Fiber4", split, pd2, 0);
+    let fb1 = new Fibre("Fiber1", lazer, split, 0);
+    let fb2 = new Fibre("Fiber2", split, mirror2, 0);
+    let fb3 = new Fibre("Fiber3", split, mirror, 0);
+    let fb4 = new Fibre("Fiber4", split, pd2, 0);
 
     lazer.fb1 = fb1;
     split.fbWest = fb1;
@@ -152,16 +167,16 @@ class test {
     //press simulate!!!
     lazer.moveSignal();
 
-    System.out.println("");
-    System.out.println(fb1.log);
-    System.out.println(fb2.log);
-    System.out.println(fb3.log);
-    System.out.println(fb4.log);
+    console.log("");
+    console.log(fb1.log);
+    console.log(fb2.log);
+    console.log(fb3.log);
+    console.log(fb4.log);
 
 
   }
 
-  public static void test4() {
+  test4() {
 
     /*
      * 		test more complicated circuit with splitter
@@ -170,7 +185,7 @@ class test {
      * 								| 						|
      * 							  fiber2				  fiber5
      * 								|						|
-     * 		laser --- fiber1 ---- splitter --- fiber3 --- splitter2-------fiber6-------mirror
+     * 		let --- fiber1 ---- let --- fiber3 --- splitter2-------fiber6-------mirror
      * 								|						|
      * 							  fiber4					|
      * 								|						|
@@ -179,23 +194,23 @@ class test {
      */
 
     //drag and drop initializes these objects
-    Laser lazer = new Laser("Laser1", "master", 10, 400);
-    Splitter split = new Splitter("split1", 0, 0, false, -3, -3);
-    Splitter split2 = new Splitter("split2", 0, 0, false, -3, -3);
-    PhotonDetector pd2 = new PhotonDetector("photon detector", 0, 0, false);
-    Component mirror = new Component("Mirror1", 0, 0, true);
-    Component mirror2 = new Component("Mirror2", 0, 0, true);
-    Component mirror3 = new Component("Mirror3", 0, 0, true);
-    Component cmp1 = new Component("Amp1", 0, 0, false);
+    let lazer = new Laser("Laser1", "master", 10, 400);
+    let split = new Splitter("split1", 0, 0, false, -3, -3);
+    let split2 = new Splitter("split2", 0, 0, false, -3, -3);
+    let pd2 = new PhotonDetector("photon detector", 0, 0, false);
+    let mirror = new Component("Mirror1", 0, 0, true);
+    let mirror2 = new Component("Mirror2", 0, 0, true);
+    let mirror3 = new Component("Mirror3", 0, 0, true);
+    let cmp1 = new Component("Amp1", 0, 0, false);
 
     //link drawn between initializes fiber and links devices
-    Fibre fb1 = new Fibre("Fiber1", lazer, split, 0);
-    Fibre fb2 = new Fibre("Fiber2", split, mirror2, 0);
-    Fibre fb3 = new Fibre("Fiber3", split, split2, 0);
-    Fibre fb4 = new Fibre("Fiber4", split, pd2, 0);
-    Fibre fb5 = new Fibre("Fiber5", mirror3, split2, 0);
-    Fibre fb6 = new Fibre("Fiber6", split2, mirror, 0);
-    Fibre fb7 = new Fibre("Fiber7", split2, cmp1, 0);
+    let fb1 = new Fibre("Fiber1", lazer, split, 0);
+    let fb2 = new Fibre("Fiber2", split, mirror2, 0);
+    let fb3 = new Fibre("Fiber3", split, split2, 0);
+    let fb4 = new Fibre("Fiber4", split, pd2, 0);
+    let fb5 = new Fibre("Fiber5", mirror3, split2, 0);
+    let fb6 = new Fibre("Fiber6", split2, mirror, 0);
+    let fb7 = new Fibre("Fiber7", split2, cmp1, 0);
 
 
     lazer.fb1 = fb1;
@@ -215,15 +230,15 @@ class test {
     //press simulate!!!
     lazer.moveSignal();
 
-    System.out.println("");
-    System.out.println(fb1.log);
-    System.out.println(fb2.log);
-    System.out.println(fb3.log);
-    System.out.println(fb4.log);
+    console.log("");
+    console.log(fb1.log);
+    console.log(fb2.log);
+    console.log(fb3.log);
+    console.log(fb4.log);
 
 
   }
-  public static void test5() {
+  test5() {
 
     /*
      * 		test more complicated circuit with splitter
@@ -238,7 +253,7 @@ class test {
      * 								| 													|
      * 							  fiber2				  							fiber5
      * 								|											        |
-     * 		laser --- fiber1 ---- splitter --- fiber3 --- AOM --- FiberLink(fb7) --- splitter2-------fiber6-------Photon Detector2
+     * 		let --- fiber1 ---- let --- fiber3 --- AOM --- FiberLink(fb7) --- splitter2-------fiber6-------Photon Detector2
      * 								|													|
      * 							  fiber4												|
      * 								|													|
@@ -259,27 +274,27 @@ class test {
      *
      *
      */
-    double f1 = 2.0 * Math.pow(10, 8); //laser frequency is 200THz = 2 * 10^8 Mhz
+    double f1 = 2.0 * Math.pow(10, 8); //let frequency is 200THz = 2 * 10^8 Mhz
     double aom_f = 50; //AOM frequency is 50MHz
     double aom_f2 = 40; //AOM2 frequency is 40MHz
 
     /*drag and drop initializes these objects*/
 
-    //laser generates 5dBm, 200Thz sig
-    Laser lazer = new Laser("Lazer1", "master", 5, f1);
+    //let generates 5dBm, 200Thz sig
+    let lazer = new Laser("Lazer1", "master", 5, f1);
 
-    //splitter with half power split
-    Splitter split = new Splitter("split1", 0, 0, false, -3, -3);
-    Splitter split2 = new Splitter("split2", 0, 0, false, -3, -3);
+    //let with half power split
+    let split = new Splitter("split1", 0, 0, false, -3, -3);
+    let split2 = new Splitter("split2", 0, 0, false, -3, -3);
 
-    PhotonDetector pd = new PhotonDetector("photon detector", 0, 0, false);
-    PhotonDetector pd2 = new PhotonDetector("photon detector2", 0, 0, false);
+    let pd = new PhotonDetector("photon detector", 0, 0, false);
+    let pd2 = new PhotonDetector("photon detector2", 0, 0, false);
 
     //mirror with 0.5dB asb
-    Component mirror2 = new Component("Mirror2", -0.5, 0, true);
+    let mirror2 = new Component("Mirror2", -0.5, 0, true);
 
 
-    Component mirror3 = new Component("Mirror3", -0.5, 0, true);
+    let mirror3 = new Component("Mirror3", -0.5, 0, true);
 
     //AOM with 2.5 dB power loss and 50MHz freq shift
     AOM AOM = new AOM("AOM", -2.5, 0, false, aom_f);
@@ -288,33 +303,33 @@ class test {
     AOM AOM2 = new AOM("AOM2", -2.5, 0, false, aom_f2);
 
     //BPF sending signals between 160 and 190MHz
-    Filter BPF = new Filter("BPF", -1, 0, false, 160, 370);
+    let BPF = new Filter("BPF", -1, 0, false, 160, 370);
 
     //mixer
-    Mixer mixer = new Mixer("mixer", 0, 0, false, 0);
+    let mixer = new Mixer("mixer", 0, 0, false, 0);
 
     //FS will generate frequency 180 MHz and at power = 5
-    FrequencySynthesizer FS = new FrequencySynthesizer("FS", "syth_sig", 5, 180);
+    let FS = new FrequencySynthesizer("FS", "syth_sig", 5, 180);
 
-    Filter LPF = new Filter("BPF", -1, 0, 3.8E8, 'L');
+    let LPF = new Filter("BPF", -1, 0, 3.8E8, 'L');
 
 
     //link drawn between initializes fiber and links devices
-    Fibre fb1 = new Fibre("Fiber1", lazer, split, 0); //normal fiber dones not introduce power shift
-    Fibre fb2 = new Fibre("Fiber2", split, mirror2, 0);
-    Fibre fb3 = new Fibre("Fiber3", split, AOM, 0);
-    Fibre fb4 = new Fibre("Fiber4", split, pd, 0);
-    Fibre fb5 = new Fibre("Fiber5", AOM2, split2, 0);
-    Fibre fb6 = new Fibre("Fiber6", split2, pd2, 0);
+    let fb1 = new Fibre("Fiber1", lazer, split, 0); //normal fiber dones not introduce power shift
+    let fb2 = new Fibre("Fiber2", split, mirror2, 0);
+    let fb3 = new Fibre("Fiber3", split, AOM, 0);
+    let fb4 = new Fibre("Fiber4", split, pd, 0);
+    let fb5 = new Fibre("Fiber5", AOM2, split2, 0);
+    let fb6 = new Fibre("Fiber6", split2, pd2, 0);
 
     //f7 is the fiber link which introduce a -10 power drop for signals passing through
-    Fibre fb7 = new Fibre("FiberLink", AOM, split2, -10);
+    let fb7 = new Fibre("FiberLink", AOM, split2, -10);
 
-    Fibre fb8 = new Fibre("Fiber8", mirror3, AOM2, 0);
-    Fibre fb9 = new Fibre("Fiber9", pd, BPF, 0);
-    Fibre fb10 = new Fibre("Fiber10", BPF, mixer, 0);
-    Fibre fb11 = new Fibre("Fiber11", FS, mixer, 0);
-    Fibre fb12 = new Fibre("Fiber12", LPF, mixer, 0);
+    let fb8 = new Fibre("Fiber8", mirror3, AOM2, 0);
+    let fb9 = new Fibre("Fiber9", pd, BPF, 0);
+    let fb10 = new Fibre("Fiber10", BPF, mixer, 0);
+    let fb11 = new Fibre("Fiber11", FS, mixer, 0);
+    let fb12 = new Fibre("Fiber12", LPF, mixer, 0);
 
     lazer.fb1 = fb1;
 
@@ -356,28 +371,28 @@ class test {
     lazer.moveSignal();
 
 
-    System.out.println("");
-    System.out.println(fb1.log);
-    System.out.println(fb2.log);
-    System.out.println(fb3.log);
-    System.out.println(fb4.log);
-    System.out.println(fb5.log);
-    System.out.println(fb6.log);
-    System.out.println(fb7.log);
-    System.out.println(fb8.log);
-    System.out.println(fb9.log);
-    System.out.println(fb10.log);
-    System.out.println(fb11.log);
-    System.out.println(fb12.log);
+    console.log("");
+    console.log(fb1.log);
+    console.log(fb2.log);
+    console.log(fb3.log);
+    console.log(fb4.log);
+    console.log(fb5.log);
+    console.log(fb6.log);
+    console.log(fb7.log);
+    console.log(fb8.log);
+    console.log(fb9.log);
+    console.log(fb10.log);
+    console.log(fb11.log);
+    console.log(fb12.log);
 
 
   }
 
-  public static String test6() {
+  static String test6() {
 
-    Simulator a = new Simulator();
-    Splitter sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
-    Splitter sp2 = new Splitter("sp2", 0, 0, false, 0, 0);
+    let a = new Simulator();
+    let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
+    let sp2 = new Splitter("sp2", 0, 0, false, 0, 0);
 
     a.addDevice("Splitter", 5, 15);
     a.addDevice("Splitter", 14, 20);
@@ -397,17 +412,17 @@ class test {
     obj.put("device2", list2);
 
     String jsonText = JSONValue.toJSONString(obj);
-    System.out.println(jsonText);
+    console.log(jsonText);
     return jsonText;
   }
 
-  public static void test7() {
+  test7() {
       String s = test6();
 
       Object obj = JSONValue.parse(s);
       Globals.log("");
       //JSONArray array=(JSONArray)obj;
-      System.out.println("");
+      console.log("");
       Map array = (Map) obj;
       JSONArray a = (JSONArray) array.get("coordinate");
 
@@ -430,120 +445,120 @@ class test {
 
 
 
-      System.out.println(obj.getClass().toString());
-      System.out.println(array.getClass().toString());
-      System.out.println(array.get("device").toString());
+      console.log(obj.getClass().toString());
+      console.log(array.getClass().toString());
+      console.log(array.get("device").toString());
 
-      System.out.println(a.get(0).toString());
+      console.log(a.get(0).toString());
 
 
 
     }
     /*
-     * 		test this: Laser 1---- 3 fiber1 1 ----3 cmpt 1-----3 fiber2 1-----3 mir
+     * 		test this: let 1---- 3 fiber1 1 ----3 cmpt 1-----3 fiber2 1-----3 mir
      *
-     * 		using sim class.
+     * 		using sim export default class.
      *
      */
-  public static void test8() {
-    Simulator sim = new Simulator();
+  test8() {
+    let sim = new Simulator();
 
     //add devices
-    int lID = sim.addDevice("Laser", 0, 0);
-    int cID = sim.addDevice("AOM", 0, 0);
+    let lID = sim.addDevice("Laser", 0, 0);
+    let cID = sim.addDevice("AOM", 0, 0);
 
     //add mirror
-    int mID = sim.addDevice("Component", 0, 0);
+    let mID = sim.addDevice("Component", 0, 0);
 
-    //print id's
-    System.out.println("ID's:");
-    System.out.println(String.valueOf(lID));
-    System.out.println(String.valueOf(cID));
-    System.out.println(String.valueOf(mID));
+    //prlet id's
+    console.log("ID's:");
+    console.log(String.valueOf(lID));
+    console.log(String.valueOf(cID));
+    console.log(String.valueOf(mID));
 
-    System.out.println();
+    console.log();
 
     //connect
     sim.connectDevices(String.valueOf(lID), String.valueOf(cID), 2, 4, null);
     sim.connectDevices(String.valueOf(cID), String.valueOf(mID), 2, 4, null);
 
     //check sim state
-    System.out.println("Device Array");
-    for (int i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
+    console.log("Device Array");
+    for (let i = 0; i < sim.deviceAry.length; i++) {
+      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
     }
 
-    System.out.println();
+    console.log();
 
-    System.out.println("Device to fiber matrix");
-    System.out.println("D1 D2 P1 P2 F");
-    for (int i = 0; i < sim.device_to_fiber.length; i++) {
+    console.log("Device to fiber matrix");
+    console.log("D1 D2 P1 P2 F");
+    for (let i = 0; i < sim.device_to_fiber.length; i++) {
       if (sim.device_to_fiber[i][0] != -1) {
-        for (int b = 0; b < 5; b++) {
+        for (let b = 0; b < 5; b++) {
           System.out.print(String.valueOf(sim.device_to_fiber[i][b]) + "  ");
         }
-        System.out.println();
+        console.log();
       }
 
     }
 
-    System.out.println();
+    console.log();
 
-    System.out.println("Fibre Array");
-    for (int i = 0; i < sim.fiberAry.length; i++) {
-      if (sim.fiberAry[i] != null) System.out.println("Index = " + i);
+    console.log("let Array");
+    for (let i = 0; i < sim.fiberAry.length; i++) {
+      if (sim.fiberAry[i] != null) console.log("Index = " + i);
     }
 
-    System.out.println();
+    console.log();
 
     //run sim
     sim.run();
 
-    System.out.println("FIBER LOGS:");
+    console.log("FIBER LOGS:");
 
-    //print logs
+    //prlet logs
     sim.printAllLogs();
 
-    System.out.println("********* DELETE LASER **************");
+    console.log("********* DELETE let **************");
 
     //delete laser
     sim.deleteDevice(String.valueOf(lID));
 
     //check sim state
-    System.out.println("Device Array");
-    for (int i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
+    console.log("Device Array");
+    for (let i = 0; i < sim.deviceAry.length; i++) {
+      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
     }
 
-    System.out.println();
+    console.log();
 
-    System.out.println("Device to fiber matrix");
-    System.out.println("D1 D2 P1 P2 F");
-    for (int i = 0; i < sim.device_to_fiber.length; i++) {
+    console.log("Device to fiber matrix");
+    console.log("D1 D2 P1 P2 F");
+    for (let i = 0; i < sim.device_to_fiber.length; i++) {
       if (sim.device_to_fiber[i][0] != -1) {
-        for (int b = 0; b < 5; b++) {
+        for (let b = 0; b < 5; b++) {
           System.out.print(String.valueOf(sim.device_to_fiber[i][b]) + "  ");
         }
-        System.out.println();
+        console.log();
       }
 
     }
 
-    System.out.println();
+    console.log();
 
-    System.out.println("Fibre Array");
-    for (int i = 0; i < sim.fiberAry.length; i++) {
-      if (sim.fiberAry[i] != null) System.out.println("Index = " + i);
+    console.log("let Array");
+    for (let i = 0; i < sim.fiberAry.length; i++) {
+      if (sim.fiberAry[i] != null) console.log("Index = " + i);
     }
 
-    System.out.println();
+    console.log();
 
   }
-  public static void test9() {
-    Component cmp1 = new Component("1", -0.5, 0, false);
-    Component cmp2 = new Component("2", -0.5, 0, false);
+  test9() {
+    let cmp1 = new Component("1", -0.5, 0, false);
+    let cmp2 = new Component("2", -0.5, 0, false);
 
-    Fibre f = new Fibre("3", cmp1, cmp2, 0);
+    let f = new Fibre("3", cmp1, cmp2, 0);
     cmp1.fb1 = f;
     cmp2.fb1 = f;
 
@@ -551,57 +566,57 @@ class test {
 
     //cmp1.fb1 = null;
     if (cmp1.fb1 == null) {
-      System.out.println("cmp1 f is null");
+      console.log("cmp1 f is null");
     }
     if (cmp2.fb1 == null) {
-      System.out.println("cmp2 f is null");
+      console.log("cmp2 f is null");
     }
   }
 
   /**
    * 		tests fiber log change
    */
-  public static void test15() {
-    Simulator sim = new Simulator();
+  test15() {
+    let sim = new Simulator();
 
-    int lID = sim.addDevice("Laser", 0, 0);
-    int cID = sim.addDevice("Component", 0, 0);
+    let lID = sim.addDevice("Laser", 0, 0);
+    let cID = sim.addDevice("Component", 0, 0);
 
     sim.connectDevices(String.valueOf(lID), String.valueOf(cID), 2, 4, null);
 
 
 
-    System.out.println("First TEST:");
+    console.log("First TEST:");
     sim.run();
     sim.printAllLogs();
 
     sim.setSigFreq(10000, String.valueOf(lID));
 
-    System.out.println("Second TEST:");
+    console.log("Second TEST:");
     sim.run();
     sim.printAllLogs();
 
     sim.setSigPower(-4, String.valueOf(lID));
     sim.setSigName("laz1", String.valueOf(lID));
 
-    System.out.println("Third TEST:");
+    console.log("Third TEST:");
     sim.run();
     sim.printAllLogs();
 
   }
 
 
-  public static void test10() throws ParseException {
-    Splitter sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
+  test10() throws ParseException {
+    let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
     AOM aom1 = new AOM("aom1", 0, 0, false, 250);
     Circulator cp1 = new Circulator("cp1", 0, 0, false, 20, 4);
-    Component com1 = new Component("com1", 0, 0, false);
-    Fibre fb1 = new Fibre("fb1", null, null, 5.0);
-    Filter ft1 = new Filter("ft1", 0, 0, false, 330, 550);
+    let com1 = new Component("com1", 0, 0, false);
+    let fb1 = new Fibre("fb1", null, null, 5.0);
+    let ft1 = new Filter("ft1", 0, 0, false, 330, 550);
     Isolator iso1 = new Isolator("iso1", 0, 0, false);
-    Laser las1 = new Laser("las1", "master sig", 20, 200);
-    Mixer mix1 = new Mixer("mix1", 0, 0, false, 20);
-    PhotonDetector pd1 = new PhotonDetector("pd1", 0, 0, false);
+    let las1 = new Laser("las1", "master sig", 20, 200);
+    let mix1 = new Mixer("mix1", 0, 0, false, 20);
+    let pd1 = new PhotonDetector("pd1", 0, 0, false);
 
     pd1.coordinate[0] = 10;
     pd1.coordinate[1] = 2;
@@ -631,11 +646,11 @@ class test {
     sp1.coordinate[1] = 2;
 
     String s = aom1.Object_to_Jason_String(1);
-    System.out.println(s);
+    console.log(s);
 
     JSONParser parser = new JSONParser();
 
-    System.out.println("=======decode=======");
+    console.log("=======decode=======");
 
     //String s ="[0,{\"1\":{\"2\":{\"3\":{\"4\":[5,{\"6\":7}]}}}}]";
 
@@ -643,38 +658,38 @@ class test {
     Object obj = parser.parse(s);
     //JSONArray array=(JSONArray)obj;
     Map array = (Map) obj;
-    System.out.println("======the 2nd element of array======");
-    System.out.println(array.get("class_type"));
-    //System.out.println(array.get("sigName"));
-    System.out.println(array.get("reflection").getClass());
-    System.out.println(((ArrayList) array.get("coordinate")).get(1));
-    System.out.println(((ArrayList) array.get("coordinate")).get(0));
-    //System.out.println(array.get("boolRef").getClass());
-    System.out.println(array.get("type").getClass());
+    console.log("======the 2nd element of array======");
+    console.log(array.get("export default class_type"));
+    //console.log(array.get("sigName"));
+    console.log(array.get("reflection").getClass());
+    console.log(((ArrayList) array.get("coordinate")).get(1));
+    console.log(((ArrayList) array.get("coordinate")).get(0));
+    //console.log(array.get("boolRef").getClass());
+    console.log(array.get("type").getClass());
     boolean a = (Boolean) array.get("boolRef");
-    System.out.println();
+    console.log();
 
     JSONObject obj2 = (JSONObject) array.get(1);
-    System.out.println("======field \"1\"==========");
-    System.out.println(obj2.get("1"));
+    console.log("======field \"1\"==========");
+    console.log(obj2.get("1"));
   }
 
-  public static void test11() {
+  test11() {
 
-    Splitter sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
+    let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
     String routePath = sp1.getClass().getClassLoader().getResource(File.separator).getPath();
-    System.out.println(routePath);
+    console.log(routePath);
 
 
     AOM aom1 = new AOM("aom1", 0, 0, false, 250);
     Circulator cp1 = new Circulator("cp1", 0, 0, false, 20, 4);
-    Component com1 = new Component("com1", 0, 0, false);
-    Fibre fb1 = new Fibre("fb1", null, null, 5.0);
-    Filter ft1 = new Filter("ft1", 0, 0, false, 330, 550);
+    let com1 = new Component("com1", 0, 0, false);
+    let fb1 = new Fibre("fb1", null, null, 5.0);
+    let ft1 = new Filter("ft1", 0, 0, false, 330, 550);
     Isolator iso1 = new Isolator("iso1", 0, 0, false);
-    Laser las1 = new Laser("las1", "master sig", 20, 200);
-    Mixer mix1 = new Mixer("mix1", 0, 0, false, 20);
-    PhotonDetector pd1 = new PhotonDetector("pd1", 0, 0, false);
+    let las1 = new Laser("las1", "master sig", 20, 200);
+    let mix1 = new Mixer("mix1", 0, 0, false, 20);
+    let pd1 = new PhotonDetector("pd1", 0, 0, false);
 
     pd1.coordinate[0] = 10;
     pd1.coordinate[1] = 2;
@@ -706,7 +721,7 @@ class test {
     int[] array = {
       15, 20, 1, 4, 50
     };
-    System.out.println(Globals.toString(array));
+    console.log(Globals.toString(array));
 
     FileWriter fw;
     BufferedWriter rw;
@@ -736,10 +751,10 @@ class test {
 
     int[] results = new int[items.length];
 
-    for (int i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       try {
         results[i] = Integer.parseInt(items[i]);
-        System.out.println(results[i]);
+        console.log(results[i]);
       } catch (NumberFormatException nfe) {
         Globals.log("furk3");
       }
@@ -747,23 +762,23 @@ class test {
     Globals.log(results[1] + " haha ");
   }
 
-  public static void test12() {
-    Simulator sim = new Simulator();
+  test12() {
+    let sim = new Simulator();
 
     //add devices
-    int lID = sim.addDevice("Laser", 0, 0);
-    int cID = sim.addDevice("AOM", 0, 0);
+    let lID = sim.addDevice("Laser", 0, 0);
+    let cID = sim.addDevice("AOM", 0, 0);
 
     //add mirror
-    int mID = sim.addDevice("Component", 0, 0);
+    let mID = sim.addDevice("Component", 0, 0);
 
-    //print id's
-    System.out.println("ID's:");
-    System.out.println(String.valueOf(lID));
-    System.out.println(String.valueOf(cID));
-    System.out.println(String.valueOf(mID));
+    //prlet id's
+    console.log("ID's:");
+    console.log(String.valueOf(lID));
+    console.log(String.valueOf(cID));
+    console.log(String.valueOf(mID));
 
-    System.out.println();
+    console.log();
 
     //connect
     sim.connectDevices(String.valueOf(lID), String.valueOf(cID), 2, 4, null);
@@ -771,28 +786,28 @@ class test {
 
     //check sim state
     Globals.log("Device Array");
-    for (int i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) System.out.println("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
+    for (let i = 0; i < sim.deviceAry.length; i++) {
+      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
     }
 
-    System.out.println();
+    console.log();
 
     Globals.log("Device to fiber matrix");
     Globals.log("D1 D2 P1 P2 F");
-    for (int i = 0; i < sim.device_to_fiber.length; i++) {
+    for (let i = 0; i < sim.device_to_fiber.length; i++) {
       if (sim.device_to_fiber[i][0] != -1) {
-        for (int b = 0; b < 5; b++) {
+        for (let b = 0; b < 5; b++) {
           System.out.print(String.valueOf(sim.device_to_fiber[i][b]) + "  ");
         }
-        System.out.println();
+        console.log();
       }
     }
-    System.out.println();
-    Globals.log("Fibre Array");
-    for (int i = 0; i < sim.fiberAry.length; i++) {
-      if (sim.fiberAry[i] != null) System.out.println("Index = " + i);
+    console.log();
+    Globals.log("let Array");
+    for (let i = 0; i < sim.fiberAry.length; i++) {
+      if (sim.fiberAry[i] != null) console.log("Index = " + i);
     }
-    System.out.println();
+    console.log();
     String pwd = "save.optc";
     sim.printState();
     sim.save(pwd);
@@ -802,29 +817,29 @@ class test {
 
   }
 
-  public static void test13() {
+  test13() {
     test12();
     Globals.log("after test 12");
     Globals.log(" under waster squad   ");
     String pwd = "save.txt";
-    Simulator sim = Simulator.load(pwd);
+    let sim = Simulator.load(pwd);
     if (sim == null) {
-      System.out.println("lol");
+      console.log("lol");
     }
-    System.out.println(sim.deviceAry[0].getClass());
+    console.log(sim.deviceAry[0].getClass());
     sim.printState();
   }
 
   /**
    * 		tests this: lazer1 ------- mirror --------------- lazer2
    */
-  public static void test14() {
+  test14() {
 
-    /*Simulator sim = new Simulator();
+    /*let sim = new Simulator();
 
-    int l1ID = sim.addDevice("Laser", 0, 0);
-    int l2ID = sim.addDevice("Laser", 0, 0);
-    int cID = sim.addDevice("Component", 0, 0);
+    let l1ID = sim.addDevice("Laser", 0, 0);
+    let l2ID = sim.addDevice("Laser", 0, 0);
+    let cID = sim.addDevice("Component", 0, 0);
 
     sim.connectDevices(String.valueOf(l1ID), String.valueOf(cID), 2, 4);
     sim.connectDevices(String.valueOf(l2ID), String.valueOf(cID), 4, 2);
@@ -847,11 +862,11 @@ class test {
    * 				  |			 |
    * 				Cmpt--------AOM
    */
-  public static void test16() {
-    Simulator sim = new Simulator();
-    int l1ID = sim.addDevice("Laser", 0, 0);
-    int cID = sim.addDevice("Component", 0, 0);
-    int aID = sim.addDevice("AOM", 0, 0);
+  test16() {
+    let sim = new Simulator();
+    let l1ID = sim.addDevice("Laser", 0, 0);
+    let cID = sim.addDevice("Component", 0, 0);
+    let aID = sim.addDevice("AOM", 0, 0);
 
     sim.connectDevices(String.valueOf(l1ID), String.valueOf(aID), 2, 1, null);
     sim.connectDevices(String.valueOf(aID), String.valueOf(cID), 4, 2, null);
@@ -862,13 +877,13 @@ class test {
   }
 
   /**
-   * 		test load/save of laser --- AOM --- Comp
+   * 		test load/save of let --- AOM --- Comp
    */
-  public static void test17() {
-    Simulator sim = new Simulator();
-    int l1ID = sim.addDevice("Laser", 0, 0);
-    int mID = sim.addDevice("Component", 0, 0);
-    int aID = sim.addDevice("AOM", 0, 0);
+  test17() {
+    let sim = new Simulator();
+    let l1ID = sim.addDevice("Laser", 0, 0);
+    let mID = sim.addDevice("Component", 0, 0);
+    let aID = sim.addDevice("AOM", 0, 0);
 
     sim.connectDevices(String.valueOf(mID), String.valueOf(aID), 4, 2, null);
     sim.connectDevices(String.valueOf(aID), String.valueOf(l1ID), 4, 2, null);
@@ -878,40 +893,40 @@ class test {
     sim.printState();
     sim.save("save.optc");
 
-    System.out.println("Save----->load");
+    console.log("Save----->load");
 
     sim = null;
-    Simulator sim1 = sim.load("save.optc");
+    let sim1 = sim.load("save.optc");
     sim1.run();
     sim1.printAllLogs();
     sim1.printState();
 
-    Laser l1 = (Laser) sim1.getDevice(String.valueOf(l1ID));
+    let l1 = (Laser) sim1.getDevice(String.valueOf(l1ID));
     AOM a1 = (AOM) sim1.getDevice(String.valueOf(aID));
-    Component c1 = (Component) sim1.getDevice(String.valueOf(mID));
+    let c1 = (Component) sim1.getDevice(String.valueOf(mID));
 
-    System.out.println("Laser: fb1: " + l1.fb1.name);
+    console.log("Laser: fb1: " + l1.fb1.name);
 
     System.out.print("AOM: fb1: ");
     if (a1.fb1 != null) System.out.print(a1.fb1.name);
     System.out.print(" fb2: ");
-    if (a1.fb2 != null) System.out.println(a1.fb2.name);
+    if (a1.fb2 != null) console.log(a1.fb2.name);
 
     System.out.print("Component: fb1: ");
     if (c1.fb1 != null) System.out.print(c1.fb1.name);
     System.out.print(" fb2: ");
-    if (c1.fb2 != null) System.out.println(c1.fb2.name);
+    if (c1.fb2 != null) console.log(c1.fb2.name);
 
   }
 
   /**
    * 		test Divider_Multiplier
    */
-  public static void test18() {
-    Simulator sim = new Simulator();
-    int l1ID = sim.addDevice("Laser", 0, 0);
-    int cID = sim.addDevice("Component", 0, 0);
-    int dmID = sim.addDevice("Divider_Multiplier", 0, 0);
+  test18() {
+    let sim = new Simulator();
+    let l1ID = sim.addDevice("Laser", 0, 0);
+    let cID = sim.addDevice("Component", 0, 0);
+    let dmID = sim.addDevice("Divider_Multiplier", 0, 0);
 
     sim.connectDevices(String.valueOf(l1ID), String.valueOf(dmID), 2, 4, null);
     sim.connectDevices(String.valueOf(dmID), String.valueOf(cID), 2, 4, null);

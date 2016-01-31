@@ -1,4 +1,6 @@
-class Globals {
+ 
+
+export default class Globals {
 
   constructor(){
     /**
@@ -12,12 +14,12 @@ class Globals {
     this.RUN_CHECK = 0;
 
     //start time of running simualtion
-    this.startTime = ;
+    this.startTime = Date.now();
 
     /**
      * the Greek letter δ
      */
-    //private static String cc2 = "2202";
+    //static String cc2 = "2202";
     this.delta = '\u0394';
   }
 
@@ -32,11 +34,11 @@ class Globals {
 	 * 	@return a Json string that contains all the instance variables
 	 */
 	Object_to_Jason_String(){
-    var obj = [];
-    obj.push("class_type","Globals");
+    const obj = [];
+    obj.push("export default class_type","Globals");
 		obj.push("MIN_POWER", new Double(MIN_POWER));
 		let jsonText = JSON.stringify(obj);
-		System.out.println(jsonText);
+		console.log(jsonText);
 		return jsonText;
 	}
 }

@@ -1,4 +1,6 @@
-class AOM extends Device {
+import Device from './Device.js';
+
+export default class AOM extends Device {
   /**
    *
    * @param name  name of AOM
@@ -62,4 +64,3 @@ class AOM extends Device {
     }
   }
 }
-module.exports = AOM;

@@ -1,19 +1,7 @@
-var express = require('express');
-var fs = require('fs');
-var d3 = require("d3");
-var _  = require("lodash");
-var app     = express();
+// only ES5 is allowed in this file
+require("babel-register");
 
-var Signal = require('./model/Signal.js');
+// other babel configuration, if necessary
 
-app.get('/', function(req, res){
-
-    var s = new Signal(10,10, 'test');
-    s.powerChange(10);
-    console.log(s.print_signal()); //Prints to server console
-    res.send(s)
-});
-
-app.listen('8081')
-console.log('http://localhost:8081/');
-//exports = module.exports = app;
+// load your app
+var app = require("./app");

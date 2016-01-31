@@ -1,12 +1,15 @@
+ 
 /**
- * fiber link is different from normal fiber class in a sense that it will introduce power shift in the signal as well as delta f tem
+ * fiber link is different from normal fiber export default class in a sense that it will introduce power shift in the signal as well as delta f tem
  * . therefore, in the constructor of FiberLink, the final parameter is power_shift, indicating how much it \
  * effect the power of signals that pass through it.
  *
  * @author Yiyang Gao
  */
 
-public class FiberLink extends Fibre {
+const Fibre = require('./Fibre.js');
+
+export default class FibreLink extends Fibre {
 
   //constructor for between cmps
   constructor(name, d1, d2, power_shift) {
@@ -21,7 +24,7 @@ public class FiberLink extends Fibre {
   /*
    * 	sends signal across fiber link from device1 to device2
    */
-  moveSignal(Signal signal) {
+  moveSignal(signal) {
 
     console.log(name + ": transfering signal");
     log(signal); //log signal properties

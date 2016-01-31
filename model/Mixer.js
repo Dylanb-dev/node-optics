@@ -1,3 +1,5 @@
+ 
+
 /**
  * 	Electronic mixers are 3-port devices. A signal of interest
  * is fed into the RF port and beats against a stable reference
@@ -5,10 +7,12 @@
  * the IF port. Power output is the addition of these signals powers
  * plus a constant.
  *
- * @author Zachary Newman
+ * @author Zachary Newman and Dylan Broadbridge
  *
  */
-class Mixer extends Device {
+const Device = require('./Device.js');
+
+export default class Mixer extends Device {
 
 	/**
 	 * constructor
@@ -56,7 +60,7 @@ class Mixer extends Device {
 	/**
 	 * 		Receive and process and send signal
 	 */
-	moveSignal(Signal signal){
+	moveSignal(signal){
 
 		//if sender is lo or rf add signal
 		if((loFiber!=null && signal.sender==loFiber.name) || (rfFiber!=null && signal.sender==rfFiber.name)){
@@ -71,7 +75,7 @@ class Mixer extends Device {
 	 * @param sig, signal being added to photon detector
 	 * @return 0 beat was created from added signal, 1 otherwise
 	 */
-	addSignal(Signal sig){
+	addSignal(sig){
 
 		//send signal on first with leakage
 		beat = sig;
@@ -80,7 +84,7 @@ class Mixer extends Device {
 
 		//add signal to array, make beats, send them
 		if(loFiber!=null && sig.sender==loFiber.name){
-			for(int i=0;i<loSignals.length;i++){
+			for(let i=0;i<loSignals.length;i++){
 				if(loSignals[i] == null){
 					loSignals[i] = sig;
 					createBeats(i,0);
@@ -88,9 +92,9 @@ class Mixer extends Device {
 				}
 			}
 		}else if(rfFiber!=null && sig.sender==rfFiber.name){
-			for(int i=0;i<rfSignals.length;i++){
+			for(let i=0;i<rfSignals.length;i++){
 				if(rfSignals[i] == null){
-					System.out.println("DSSD"+i);
+					console.log("DSSD"+i);
 					rfSignals[i] = sig;
 					createBeats(i,1);
 					return 0;
@@ -106,7 +110,7 @@ class Mixer extends Device {
 	 * @param index of newly added signal
 	 * @param port 0 = loport signal 1 = rfport signal
 	 */
-	createBeats(int index, int port){
+	createBeats(index, port){
 
 		//if sig from loport
 		if(port === 0){
@@ -179,7 +183,7 @@ class Mixer extends Device {
 				}
 			}
 
-			for(int b=0;b<loSignals.length;b++){
+			for(let b=0;b<loSignals.length;b++){
 				if(loSignals[b]!=null){
 					//MIX UP
 					beat = new Signal(		rfSignals[index].power+loSignals[b].power+pConst,
@@ -215,7 +219,7 @@ class Mixer extends Device {
 	/**
 	 * 		decide where to move reflected signal and send
 	 */
-   reflectSignal(Signal sig){
+   reflectSignal(sig){
 		if(sig.sender==rfFiber.name){
 			sig.sender = name;
 			rfFiber.moveSignal(sig);

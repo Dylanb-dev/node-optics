@@ -1,3 +1,4 @@
+ 
 /**
  * 		A Circulator is a 3-port device in which a signal that enters port 1
  * 		leaves port 2, and a signal that enters port 2 leaves port 3. There
@@ -7,7 +8,9 @@
  * @author Zachary Newman
  *
  */
-class Circulator extends Device {
+const Device = require('./Device.js');
+
+export default class Circulator extends Device {
 
 
 	/**
@@ -67,7 +70,6 @@ class Circulator extends Device {
 	 * @param sig the signa being reflected
 	 * 		decide where to move reflected signal and send
 	 */
-	@Override
 	reflectSignal(sig){
 		if(sig.sender==fb1.name){
 			sig.sender = name;

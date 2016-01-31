@@ -1,6 +1,6 @@
-'use strict';
+ 
 
-class Signal {
+export default class Signal {
 
   constructor(power, freq, name, sender){
     this.power = power;
@@ -44,7 +44,7 @@ class Signal {
   			if(i >= size){											//delta_f is full
   																//expand the string array
   				//Globals.log("haha array being expanded " + i +" " + f + " " + this.name);
-  				var swp = [this.delta_f.length * 2];
+  				const swp = [this.delta_f.length * 2];
   				for(let a=0;a<this.delta_f.length;a++){
   					swp[a] = this.delta_f[a];
   				}
@@ -80,7 +80,7 @@ class Signal {
   				if(this.delta_f[i]==null) break;
 
   				if(coefficient[i] != 0){						//if coefficient is 0 then cancel the delta f term
-  					var sign = "+";
+  					const sign = "+";
   					if(coefficient[i] < 0){
   						sign = "";
   					}

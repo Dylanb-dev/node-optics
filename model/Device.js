@@ -1,11 +1,12 @@
+
 /**
- * 		super class for all devices. sets general class variables and device effects
+ * 		super export default class for all devices. sets general export default class variables and device effects
  * 		caused by reflection and absorption.
  *
- * @author Zachary Newman
+ * @author Zachary Newman and Dylan Broadbridge
  *
  */
-public class Device {
+export default class Device {
 
   constructor() {
     this.coordinate = new int[2];
@@ -39,7 +40,7 @@ public class Device {
     //if device has reflection(dB) and is above threshold create reflection signal
     if (boolRef) {
       if ((signal.power + reflection) > Globals.MIN_POWER) {
-        Signal reflectedSignal = new Signal(signal.power + reflection,
+        let reflectedSignal = new Signal(signal.power + reflection,
           signal.freq,
           signal.name + "_ref",
           signal.sender);
@@ -68,17 +69,17 @@ public class Device {
    *	into the newly created signal
    */
   inheritPerturbation(original, duplicate) {
-    if (original.delta_f.length > duplicate.delta_f.length) {
-      let a = new String[original.delta_f.length];
-      duplicate.delta_f = a;
-      let b = new double[original.delta_f.length];
-      duplicate.coefficient = b;
-
-    }
+    // if (original.delta_f.length > duplicate.delta_f.length) {
+    //   let a = new String[original.delta_f.length];
+    //   duplicate.delta_f = a;
+    //   let b = new double[original.delta_f.length];
+    //   duplicate.coefficient = b;
+    //
+    // }
 
     //copy delta f and its coefficient into the new reflected signal
-    var duplicate.delta_f = original.delta_f.slice();
-    var original.coefficient = duplicate.coefficient.slice();
+    const duplicate = original.slice();
+    const original  = duplicate.slice();
 
   }
 
@@ -91,7 +92,7 @@ public class Device {
    * @param b signal
    */
 
-  perturbationBeat(Signal beat, Signal a, Signal b) {
+  perturbationBeat(beat, a, b) {
 
     inheritPerturbation(b, beat);
     let i = 0;
@@ -127,7 +128,7 @@ public class Device {
 
   non_zero_element_counter(a) {
     counter = 0;
-    for (String s: a) {
+    for (s in a) {
       if (s != null) {
         counter++;
       }
@@ -140,4 +141,3 @@ public class Device {
    */
   reflectSignal(sig) {}
 }
-module.exports = Device;

@@ -1,3 +1,4 @@
+ 
 /**
  * 		A frequency synthesizer produces an electronic signal between 0 Hz and 20 GHz,
  * 		with output powers ranging from -110 dBm to +20 dBm.
@@ -11,7 +12,10 @@
  * @author Yiyang Gao
  *
  */
-FrequencySynthesizer extends Device {
+
+const Device = require('./Device.js');
+
+export default class FrequencySynthesizer extends Device {
 
   /**
    * constructor for frequency synthesizer
@@ -36,6 +40,6 @@ FrequencySynthesizer extends Device {
       fb1.moveSignal(signal);
     }
   }
-  
+
 }
 module.exports = FrequencySynthesizer;

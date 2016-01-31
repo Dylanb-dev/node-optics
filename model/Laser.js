@@ -1,10 +1,12 @@
+ 
 /**
  * 			Laser creates signals and specifies their properties
  * 			it also can't recieve a signal
  *
  */
+const Device = require('./Device.js');
 
-class Laser extends Device {
+export default class Laser extends Device {
 
 	/**
 	 * Constructor for laser
@@ -13,7 +15,7 @@ class Laser extends Device {
 	 * @param power power of signal generated
 	 * @param freq  frequency of signal generated
 	 */
-	public Laser(name, sigName, power, freq){
+	Laser(name, sigName, power, freq){
 
     this.fb1 = new Fibre();
 
@@ -48,7 +50,7 @@ class Laser extends Device {
 	 * 		change output signal power
 	 * @param power new power
 	 */
-	changeSignalPower(double power){
+	changeSignalPower(power){
 		signal.power = power;
 	}
 
@@ -56,7 +58,7 @@ class Laser extends Device {
 	 * 		change output signal frequency
 	 * @param freq new frequency
 	 */
-	changeSignalFreq(double freq){
+	changeSignalFreq(freq){
 		signal.freq = freq;
 	}
 
@@ -64,7 +66,7 @@ class Laser extends Device {
 	 * 		change name of signal sender
 	 * @param name new sender name
 	 */
-	chngSigSender(String name){
+	chngSigSender(name){
 		signal.sender = name;
 	}
 
