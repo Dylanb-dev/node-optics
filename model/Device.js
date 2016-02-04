@@ -1,6 +1,7 @@
 
 /**
- * 		super export default class for all devices. sets general export default class variables and device effects
+ * 		super export default class for all devices. sets general export default
+ *    class variables and device effects
  * 		caused by reflection and absorption.
  *
  * @author Zachary Newman and Dylan Broadbridge
@@ -9,18 +10,18 @@
 export default class Device {
 
   constructor() {
-    this.coordinate = new int[2];
+    this.coordinate = [];
     this.name = '';
-    this.type;
+    this.type = '';
     this.label = '';
-    this.absorption; //+ or - dB from forward signal
-    this.reflectSignal; //create reflected signal with + or - this dB from original signal
+    this.absorption = 0; // + or - dB from forward signal
+    this.reflectSignal = false; // create reflected signal with + or - this dB from original signal
     /**
      * 		this is needed to specify weather the device has no reflection or
      * 		has reflection with no change to dBm power
      * 		true = ref false = no ref
      */
-    this.boolRef;
+    this.boolRef = false;
   }
 
   moveSignal(signal) {}

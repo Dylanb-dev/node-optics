@@ -22,7 +22,7 @@ import Splitter from './model/Splitter.js';
 
 export default class test {
 
-  test0()
+  //test0()
   //test1();
   //test2();
   //test3();
@@ -39,7 +39,6 @@ export default class test {
 
   //test17();
   //test18();
-
 
   test0() {
       console.log(Globals.delta);
@@ -274,9 +273,9 @@ export default class test {
      *
      *
      */
-    double f1 = 2.0 * Math.pow(10, 8); //let frequency is 200THz = 2 * 10^8 Mhz
-    double aom_f = 50; //AOM frequency is 50MHz
-    double aom_f2 = 40; //AOM2 frequency is 40MHz
+    let f1 = 2.0 * Math.pow(10, 8); // let frequency is 200THz = 2 * 10^8 Mhz
+    let aom_f = 50; //AOM frequency is 50MHz
+    let aom_f2 = 40; //AOM2 frequency is 40MHz
 
     /*drag and drop initializes these objects*/
 
@@ -297,10 +296,10 @@ export default class test {
     let mirror3 = new Component("Mirror3", -0.5, 0, true);
 
     //AOM with 2.5 dB power loss and 50MHz freq shift
-    AOM AOM = new AOM("AOM", -2.5, 0, false, aom_f);
+    AOM = new AOM("AOM", -2.5, 0, false, aom_f);
 
     //AOM with 2.5 dB power loss and 40MHz freq shift
-    AOM AOM2 = new AOM("AOM2", -2.5, 0, false, aom_f2);
+    AOM2 = new AOM("AOM2", -2.5, 0, false, aom_f2);
 
     //BPF sending signals between 160 and 190MHz
     let BPF = new Filter("BPF", -1, 0, false, 160, 370);
@@ -388,72 +387,72 @@ export default class test {
 
   }
 
-  static String test6() {
+  // test6() {
+  //
+  //   let a = new Simulator();
+  //   let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
+  //   let sp2 = new Splitter("sp2", 0, 0, false, 0, 0);
+  //
+  //   a.addDevice("Splitter", 5, 15);
+  //   a.addDevice("Splitter", 14, 20);
+  //   a.connectDevices(sp1.name, sp2.name, 1, 1, null);
+  //   //return sp1.Object_to_Jason_String();
+  //
+  //   JSONArray list1 = new JSONArray();
+  //   list1.add(sp1.Object_to_Jason_String(1));
+  //   list1.add(sp2.Object_to_Jason_String(2));
+  //
+  //   JSONArray list2 = new JSONArray();
+  //   list2.add(sp1.Object_to_Jason_String(1));
+  //   list2.add(sp2.Object_to_Jason_String(2));
+  //
+  //   Map < String, Serializable > obj = new LinkedHashMap < String, Serializable > ();
+  //   obj.put("device", list1);
+  //   obj.put("device2", list2);
+  //
+  //   String jsonText = JSONValue.toJSONString(obj);
+  //   console.log(jsonText);
+  //   return jsonText;
+  //}
 
-    let a = new Simulator();
-    let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
-    let sp2 = new Splitter("sp2", 0, 0, false, 0, 0);
-
-    a.addDevice("Splitter", 5, 15);
-    a.addDevice("Splitter", 14, 20);
-    a.connectDevices(sp1.name, sp2.name, 1, 1, null);
-    //return sp1.Object_to_Jason_String();
-
-    JSONArray list1 = new JSONArray();
-    list1.add(sp1.Object_to_Jason_String(1));
-    list1.add(sp2.Object_to_Jason_String(2));
-
-    JSONArray list2 = new JSONArray();
-    list2.add(sp1.Object_to_Jason_String(1));
-    list2.add(sp2.Object_to_Jason_String(2));
-
-    Map < String, Serializable > obj = new LinkedHashMap < String, Serializable > ();
-    obj.put("device", list1);
-    obj.put("device2", list2);
-
-    String jsonText = JSONValue.toJSONString(obj);
-    console.log(jsonText);
-    return jsonText;
-  }
-
-  test7() {
-      String s = test6();
-
-      Object obj = JSONValue.parse(s);
-      Globals.log("");
-      //JSONArray array=(JSONArray)obj;
-      console.log("");
-      Map array = (Map) obj;
-      JSONArray a = (JSONArray) array.get("coordinate");
-
-      //Globals.log(a.get(0).toString());
-      //Globals.log(a.get(1).toString());
-      Globals.log("haha");
-      //Map a = (Map) array.get("device");
-
-
-      Globals.log(obj.getClass().toString());
-      Globals.log("haha");
-      Globals.log(array.getClass().toString());
-      Globals.log("haha");
-      Globals.log(array.get("device").toString());
-      Globals.log("haha");
-
-      Globals.log("haha");
-      Globals.log(a.get(0).getClass().toString());
-
-
-
-
-      console.log(obj.getClass().toString());
-      console.log(array.getClass().toString());
-      console.log(array.get("device").toString());
-
-      console.log(a.get(0).toString());
-
-
-
-    }
+  // test7() {
+  //     String s = test6();
+  //
+  //     Object obj = JSONValue.parse(s);
+  //     Globals.log("");
+  //     //JSONArray array=(JSONArray)obj;
+  //     console.log("");
+  //     Map array = (Map) obj;
+  //     JSONArray a = (JSONArray) array.get("coordinate");
+  //
+  //     //Globals.log(a.get(0).toString());
+  //     //Globals.log(a.get(1).toString());
+  //     Globals.log("haha");
+  //     //Map a = (Map) array.get("device");
+  //
+  //
+  //     Globals.log(obj.getClass().toString());
+  //     Globals.log("haha");
+  //     Globals.log(array.getClass().toString());
+  //     Globals.log("haha");
+  //     Globals.log(array.get("device").toString());
+  //     Globals.log("haha");
+  //
+  //     Globals.log("haha");
+  //     Globals.log(a.get(0).getClass().toString());
+  //
+  //
+  //
+  //
+  //     console.log(obj.getClass().toString());
+  //     console.log(array.getClass().toString());
+  //     console.log(array.get("device").toString());
+  //
+  //     console.log(a.get(0).toString());
+  //
+  //
+  //
+  //   }
     /*
      * 		test this: let 1---- 3 fiber1 1 ----3 cmpt 1-----3 fiber2 1-----3 mir
      *
@@ -485,8 +484,10 @@ export default class test {
     //check sim state
     console.log("Device Array");
     for (let i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
-    }
+      if (sim.deviceAry[i] !== null) {
+        console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name))
+      };
+    };
 
     console.log();
 
@@ -527,7 +528,7 @@ export default class test {
     //check sim state
     console.log("Device Array");
     for (let i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
+      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name));
     }
 
     console.log();
@@ -939,4 +940,3 @@ export default class test {
 
 
 }
-module.exports = test;
