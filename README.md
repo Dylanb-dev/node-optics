@@ -17,9 +17,10 @@ apm install linter linter-eslint
 ```sh
 git clone https://github.com/lolcookie/node-optics.git
 ```
-* Install dependencies and run server
+* Install dependencies,build and run server
 ```sh
 npm install
+npm run build
 node server.js
 ```
 * Open in browser
