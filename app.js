@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const config = require('./webpack.local.config');
 const app = express();
 
 /*
@@ -68,9 +70,6 @@ app.post('/api', (req, res) => {
  */
 
 if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack');
-  const WebpackDevServer = require('webpack-dev-server');
-  const config = require('./webpack.local.config');
   new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     hot: true,
