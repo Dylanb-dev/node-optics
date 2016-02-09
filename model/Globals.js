@@ -1,8 +1,9 @@
- 
+
 
 export default class Globals {
 
   constructor(){
+
     /**
      *  lowest signal power in dBm (make possible to changed it)
      */

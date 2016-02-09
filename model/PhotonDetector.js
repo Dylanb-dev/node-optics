@@ -1,4 +1,4 @@
- 
+
 
 /**
  * 		The photon detector stores a collection of all signals that it has recieved.
@@ -21,6 +21,7 @@ export default class PhotonDetector extends Device {
    * @param enableRef
    */
   constructor(name, abs, ref, enableRef) {
+    super();
 
     this.fbIn = new Fibre();
     this.fbOut = new Fibre();

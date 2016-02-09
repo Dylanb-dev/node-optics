@@ -1,4 +1,4 @@
- 
+
 
 /**
  * 	Electronic mixers are 3-port devices. A signal of interest
@@ -24,6 +24,7 @@ export default class Mixer extends Device {
 	 */
 
 	constructor(name, abs, ref, enableRef, pConst){
+    super();
 
     //connecting fibers
     this.rfFiber = new Fibre();

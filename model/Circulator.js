@@ -1,11 +1,10 @@
- 
 /**
  * 		A Circulator is a 3-port device in which a signal that enters port 1
  * 		leaves port 2, and a signal that enters port 2 leaves port 3. There
  * 		will be a certain amount of power loss from 1-to-2 and 2-to-3 that can
  * 		be specified.
  *
- * @author Zachary Newman
+ * @author Zachary Newman and Dylan Broadbridge
  *
  */
 const Device = require('./Device.js');
@@ -23,8 +22,7 @@ export default class Circulator extends Device {
 	 * constructor
 	 */
    constructor(name, abs, ref, enableRef, abs1_2, abs2_3){
-
-
+     super();
     //connecting fibers
     this.fb1 = new Fibre;
     this.fb2 = new Fibre;
@@ -84,4 +82,3 @@ export default class Circulator extends Device {
 	}
 
 }
-module.exports = Circulator;

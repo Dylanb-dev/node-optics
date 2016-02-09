@@ -15,7 +15,7 @@ export default class Component extends Device {
 	 * @param enableRef
 	 */
 	constructor(name, abs, ref, enableRef){
-
+			super();
       this.fb1 = new Fibre;
       this.fb2 = new Fibre;
 			this.name = name;

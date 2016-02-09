@@ -17,7 +17,8 @@ export default class Splitter extends Device {
    */
   Splitter(String name, double abs, double ref, boolean enableRef,
     double power1, double power2) {
-
+    super();
+    
     //connecting fibers , north, east, south, west
 
     this.fbNorth = new Fibre();

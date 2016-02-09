@@ -1,9 +1,10 @@
- 
+
 
 export default class Fibre {
 
 	 constructor(name, d1, d2, abs){
-		this.d1 = d1;
+
+    this.d1 = d1;
 		this.d2 = d2;
 		this.name = name;
 		this.absorption = abs;

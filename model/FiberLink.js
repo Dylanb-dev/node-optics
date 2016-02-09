@@ -1,4 +1,4 @@
- 
+
 /**
  * fiber link is different from normal fiber export default class in a sense that it will introduce power shift in the signal as well as delta f tem
  * . therefore, in the constructor of FiberLink, the final parameter is power_shift, indicating how much it \
@@ -13,6 +13,8 @@ export default class FibreLink extends Fibre {
 
   //constructor for between cmps
   constructor(name, d1, d2, power_shift) {
+    super();
+    
     this.d1 = d1;
     this.d2 = d2;
     this.name = name;

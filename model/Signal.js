@@ -1,8 +1,9 @@
- 
+
 
 export default class Signal {
 
   constructor(power, freq, name, sender){
+
     this.power = power;
     this.freq = freq;
     this.name = name;

@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "postinstall": "npm run build",
+    "backtest": "NODE_ENV=test node server.js",
     "server": "node server.js",
     "build": "cross-env NODE_ENV=production UV_THREADPOOL_SIZE=100 webpack --config ./webpack.local.config",
     "test": "nyc ava --fail-fast --verbose --require babel-register",

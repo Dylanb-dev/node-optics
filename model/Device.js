@@ -79,8 +79,8 @@ export default class Device {
     // }
 
     //copy delta f and its coefficient into the new reflected signal
-    const duplicate = original.slice();
-    const original  = duplicate.slice();
+    duplicate = original.slice();
+    original  = duplicate.slice();
 
   }
 

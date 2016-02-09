@@ -1,4 +1,4 @@
- 
+
 /**
  * 		A frequency synthesizer produces an electronic signal between 0 Hz and 20 GHz,
  * 		with output powers ranging from -110 dBm to +20 dBm.
@@ -22,6 +22,8 @@ export default class FrequencySynthesizer extends Device {
    *
    */
   constructor(name, sigName, fq, pw) {
+    super();
+
     this.fb1 = new Fibre();
     this.name = name;
     this.frequency = fq; //synthsizer will generate signal at this frequency

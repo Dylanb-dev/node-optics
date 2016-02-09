@@ -1,4 +1,4 @@
- 
+
 
 const Device = require('./Device.js');
 
@@ -13,6 +13,8 @@ export default class Isolator extends Device {
 	 *
 	 */
 	Isolator(name, abs, ref, enableRef){
+    super();
+
     //fibers isolator is connected with
     this.receiveFb = new Fibre();
     this.sendFb = new Fibre();

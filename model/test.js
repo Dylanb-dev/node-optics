@@ -1,20 +1,20 @@
-import Device from './model/Device.js';
-import AOM from './model/AOM.js';
-import Circulator from './model/Circulator.js';
-import Component from './model/Component.js';
-import Divider_Multiplier from './model/Divider_Multiplier.js';
-import FiberLink from './model/FiberLink.js';
-import Fibre from './model/Fibre.js';
-import Filter from './model/Filter.js';
-import FrequencySynthesizer from './model/FrequencySynthesizer.js';
-import Globals from './model/Globals.js';
-import Isolator from './model/Isolator.js';
-import Laser from './model/Laser.js';
-import Mixer from './model/Mixer.js';
-import PhotonDetector from './model/PhotonDetector.js';
-import Signal from './model/Signal.js';
-import Simulator from './model/Simulator.js';
-import Splitter from './model/Splitter.js';
+import Device from './Device.js';
+import AOM from './AOM.js';
+import Circulator from './Circulator.js';
+import Component from './Component.js';
+import Divider_Multiplier from './Divider_Multiplier.js';
+import FiberLink from './FiberLink.js';
+import Fibre from './Fibre.js';
+import Filter from './Filter.js';
+import FrequencySynthesizer from './FrequencySynthesizer.js';
+import Globals from './Globals.js';
+import Isolator from './Isolator.js';
+import Laser from './Laser.js';
+import Mixer from './Mixer.js';
+import PhotonDetector from './PhotonDetector.js';
+import Signal from './Signal.js';
+import Simulator from './Simulator.js';
+import Splitter from './Splitter.js';
 /**
  *		Class for testing of the software. Including the gui and simulation of the optical fiber model
  *
@@ -296,10 +296,10 @@ export default class test {
     let mirror3 = new Component("Mirror3", -0.5, 0, true);
 
     //AOM with 2.5 dB power loss and 50MHz freq shift
-    AOM = new AOM("AOM", -2.5, 0, false, aom_f);
+    let AOM = new AOM("AOM", -2.5, 0, false, aom_f);
 
     //AOM with 2.5 dB power loss and 40MHz freq shift
-    AOM2 = new AOM("AOM2", -2.5, 0, false, aom_f2);
+    let AOM2 = new AOM("AOM2", -2.5, 0, false, aom_f2);
 
     //BPF sending signals between 160 and 190MHz
     let BPF = new Filter("BPF", -1, 0, false, 160, 370);
@@ -606,223 +606,11 @@ export default class test {
 
   }
 
-
-  test10() throws ParseException {
-    let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
-    AOM aom1 = new AOM("aom1", 0, 0, false, 250);
-    Circulator cp1 = new Circulator("cp1", 0, 0, false, 20, 4);
-    let com1 = new Component("com1", 0, 0, false);
-    let fb1 = new Fibre("fb1", null, null, 5.0);
-    let ft1 = new Filter("ft1", 0, 0, false, 330, 550);
-    Isolator iso1 = new Isolator("iso1", 0, 0, false);
-    let las1 = new Laser("las1", "master sig", 20, 200);
-    let mix1 = new Mixer("mix1", 0, 0, false, 20);
-    let pd1 = new PhotonDetector("pd1", 0, 0, false);
-
-    pd1.coordinate[0] = 10;
-    pd1.coordinate[1] = 2;
-
-    mix1.coordinate[0] = 10;
-    mix1.coordinate[1] = 2;
-
-    las1.coordinate[0] = 10;
-    las1.coordinate[1] = 2;
-
-    iso1.coordinate[0] = 10;
-    iso1.coordinate[1] = 2;
-
-    ft1.coordinate[0] = 10;
-    ft1.coordinate[1] = 2;
-
-    com1.coordinate[0] = 10;
-    com1.coordinate[1] = 2;
-
-    cp1.coordinate[0] = 10;
-    cp1.coordinate[1] = 2;
-
-    aom1.coordinate[0] = 10;
-    aom1.coordinate[1] = 2;
-
-    sp1.coordinate[0] = 10;
-    sp1.coordinate[1] = 2;
-
-    String s = aom1.Object_to_Jason_String(1);
-    console.log(s);
-
-    JSONParser parser = new JSONParser();
-
-    console.log("=======decode=======");
-
-    //String s ="[0,{\"1\":{\"2\":{\"3\":{\"4\":[5,{\"6\":7}]}}}}]";
-
-
-    Object obj = parser.parse(s);
-    //JSONArray array=(JSONArray)obj;
-    Map array = (Map) obj;
-    console.log("======the 2nd element of array======");
-    console.log(array.get("export default class_type"));
-    //console.log(array.get("sigName"));
-    console.log(array.get("reflection").getClass());
-    console.log(((ArrayList) array.get("coordinate")).get(1));
-    console.log(((ArrayList) array.get("coordinate")).get(0));
-    //console.log(array.get("boolRef").getClass());
-    console.log(array.get("type").getClass());
-    boolean a = (Boolean) array.get("boolRef");
-    console.log();
-
-    JSONObject obj2 = (JSONObject) array.get(1);
-    console.log("======field \"1\"==========");
-    console.log(obj2.get("1"));
-  }
-
-  test11() {
-
-    let sp1 = new Splitter("sp1", 0, 0, false, 0, 0);
-    String routePath = sp1.getClass().getClassLoader().getResource(File.separator).getPath();
-    console.log(routePath);
-
-
-    AOM aom1 = new AOM("aom1", 0, 0, false, 250);
-    Circulator cp1 = new Circulator("cp1", 0, 0, false, 20, 4);
-    let com1 = new Component("com1", 0, 0, false);
-    let fb1 = new Fibre("fb1", null, null, 5.0);
-    let ft1 = new Filter("ft1", 0, 0, false, 330, 550);
-    Isolator iso1 = new Isolator("iso1", 0, 0, false);
-    let las1 = new Laser("las1", "master sig", 20, 200);
-    let mix1 = new Mixer("mix1", 0, 0, false, 20);
-    let pd1 = new PhotonDetector("pd1", 0, 0, false);
-
-    pd1.coordinate[0] = 10;
-    pd1.coordinate[1] = 2;
-
-    mix1.coordinate[0] = 10;
-    mix1.coordinate[1] = 2;
-
-    las1.coordinate[0] = 10;
-    las1.coordinate[1] = 2;
-
-    iso1.coordinate[0] = 10;
-    iso1.coordinate[1] = 2;
-
-    ft1.coordinate[0] = 10;
-    ft1.coordinate[1] = 2;
-
-    com1.coordinate[0] = 10;
-    com1.coordinate[1] = 2;
-
-    cp1.coordinate[0] = 10;
-    cp1.coordinate[1] = 2;
-
-    aom1.coordinate[0] = 10;
-    aom1.coordinate[1] = 2;
-
-    sp1.coordinate[0] = 10;
-    sp1.coordinate[1] = 2;
-
-    int[] array = {
-      15, 20, 1, 4, 50
-    };
-    console.log(Globals.toString(array));
-
-    FileWriter fw;
-    BufferedWriter rw;
-    String pwd = "save.txt";
-    try {
-      fw = new FileWriter(pwd);
-    } catch (IOException e) {
-      e.printStackTrace();
-      Globals.log("furk1");
-      return;
-    }
-    rw = new BufferedWriter(fw, 10);
-    String s = Globals.Object_to_Jason_String();
-    try {
-      Globals.log("furk2");
-      rw.write(Globals.toString(array));
-      rw.newLine();
-      rw.flush();
-    } catch (IOException ioe) {
-      Globals.log("furk3");
-      ioe.printStackTrace();
-      return;
-    }
-
-    String arr = Globals.toString(array);
-    String[] items = arr.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
-
-    int[] results = new int[items.length];
-
-    for (let i = 0; i < items.length; i++) {
-      try {
-        results[i] = Integer.parseInt(items[i]);
-        console.log(results[i]);
-      } catch (NumberFormatException nfe) {
-        Globals.log("furk3");
-      }
-    }
-    Globals.log(results[1] + " haha ");
-  }
-
-  test12() {
-    let sim = new Simulator();
-
-    //add devices
-    let lID = sim.addDevice("Laser", 0, 0);
-    let cID = sim.addDevice("AOM", 0, 0);
-
-    //add mirror
-    let mID = sim.addDevice("Component", 0, 0);
-
-    //prlet id's
-    console.log("ID's:");
-    console.log(String.valueOf(lID));
-    console.log(String.valueOf(cID));
-    console.log(String.valueOf(mID));
-
-    console.log();
-
-    //connect
-    sim.connectDevices(String.valueOf(lID), String.valueOf(cID), 2, 4, null);
-    sim.connectDevices(String.valueOf(cID), String.valueOf(mID), 2, 4, null);
-
-    //check sim state
-    Globals.log("Device Array");
-    for (let i = 0; i < sim.deviceAry.length; i++) {
-      if (sim.deviceAry[i] != null) console.log("Index = " + i + " ID: " + String.valueOf(sim.deviceAry[i].name);
-    }
-
-    console.log();
-
-    Globals.log("Device to fiber matrix");
-    Globals.log("D1 D2 P1 P2 F");
-    for (let i = 0; i < sim.device_to_fiber.length; i++) {
-      if (sim.device_to_fiber[i][0] != -1) {
-        for (let b = 0; b < 5; b++) {
-          System.out.print(String.valueOf(sim.device_to_fiber[i][b]) + "  ");
-        }
-        console.log();
-      }
-    }
-    console.log();
-    Globals.log("let Array");
-    for (let i = 0; i < sim.fiberAry.length; i++) {
-      if (sim.fiberAry[i] != null) console.log("Index = " + i);
-    }
-    console.log();
-    String pwd = "save.optc";
-    sim.printState();
-    sim.save(pwd);
-
-
-
-
-  }
-
   test13() {
     test12();
     Globals.log("after test 12");
     Globals.log(" under waster squad   ");
-    String pwd = "save.txt";
+    let pwd = "save.txt";
     let sim = Simulator.load(pwd);
     if (sim == null) {
       console.log("lol");
@@ -902,22 +690,21 @@ export default class test {
     sim1.printAllLogs();
     sim1.printState();
 
-    let l1 = (Laser) sim1.getDevice(String.valueOf(l1ID));
-    AOM a1 = (AOM) sim1.getDevice(String.valueOf(aID));
-    let c1 = (Component) sim1.getDevice(String.valueOf(mID));
+    let l1 = sim1.getDevice(String.valueOf(l1ID));
+    let a1 = sim1.getDevice(String.valueOf(aID));
+    let c1 = sim1.getDevice(String.valueOf(mID));
 
     console.log("Laser: fb1: " + l1.fb1.name);
 
-    System.out.print("AOM: fb1: ");
+    console.log("AOM: fb1: ");
     if (a1.fb1 != null) System.out.print(a1.fb1.name);
-    System.out.print(" fb2: ");
+    console.log(" fb2: ");
     if (a1.fb2 != null) console.log(a1.fb2.name);
 
-    System.out.print("Component: fb1: ");
+    console.log("Component: fb1: ");
     if (c1.fb1 != null) System.out.print(c1.fb1.name);
-    System.out.print(" fb2: ");
+    console.log(" fb2: ");
     if (c1.fb2 != null) console.log(c1.fb2.name);
-
   }
 
   /**
@@ -933,10 +720,6 @@ export default class test {
     sim.connectDevices(String.valueOf(dmID), String.valueOf(cID), 2, 4, null);
 
     sim.run();
-
     sim.printState();
-
   }
-
-
 }

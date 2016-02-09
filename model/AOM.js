@@ -12,6 +12,7 @@ export default class AOM extends Device {
    * 			perturbation_off（）
    */
   constructor(name, abs, ref, enableRef, fs) {
+    super();
     this.typeName = "AOM";
     this.name = name;
     this.reflection = ref;

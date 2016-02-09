@@ -1,4 +1,4 @@
- 
+
 /**
  * 			Laser creates signals and specifies their properties
  * 			it also can't recieve a signal
@@ -16,6 +16,7 @@ export default class Laser extends Device {
 	 * @param freq  frequency of signal generated
 	 */
 	Laser(name, sigName, power, freq){
+    super();
 
     this.fb1 = new Fibre();
 

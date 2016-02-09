@@ -1,4 +1,4 @@
- 
+
 /**
  * 		filter let signal within the spercified frequency range to pass through
  * 		also power_shift indicate how power of signals passing through is effected
@@ -20,6 +20,8 @@ export default class Filter extends Device {
    */
 
   constructor(name, abs, ref, enableRef, frequency_limit1, frequency_limit2, type) {
+    super();
+
     //received both upper limit and
     this.name = name;
     this.fb1 = new Fibre();

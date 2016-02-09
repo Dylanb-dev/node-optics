@@ -1,5 +1,3 @@
- 
-
 /**
  * 			A device to make a frequency multiplier or a divider depending
  * 			on the specified effect value.
@@ -23,6 +21,7 @@ export default class Divider_Multiplier extends Device {
    * @param effect multiply/divide effect of device
    */
   constructor(name, abs, ref, enableRef, effect) {
+    super();
 
     this.fb1 = new Fibre();
     this.fb2 = new Fibre();
