@@ -73,6 +73,7 @@ circuit and calculates results.
 * JAVASCRIPT: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 * ES6: https://leanpub.com/understandinges6/read
 * BABEL-REPL: https://babeljs.io/repl/
+* PROMISES: https://github.com/wbinnssmith/awesome-promises#resources-blogs-and-books
 * PostgreSQL: tbd
 * REDIS: tbd
 
